@@ -1,0 +1,14 @@
+#container {
+  display: flex;
+}
+
+.case {
+  border: 1px solid black;
+  height: 15px;
+  width: 15px;
+}
+
+#plateau {
+  display: grid;
+  grid-template-columns: repeat(41, 1fr);
+}
