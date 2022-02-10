@@ -2,13 +2,54 @@
   display: flex;
 }
 
-.case {
+#plateau > div {
   border: 1px solid black;
-  height: 15px;
-  width: 15px;
+  border-left: none;
+  border-bottom: none;
+  height: 18px;
+  width: 18px;
+}
+
+.balcon {
+  background-color: aquamarine;
+}
+
+.fosse {
+  background-color: cadetblue;
+}
+
+.scene {
+  background-color: chocolate;
+}
+
+.bar {
+  background-color: blueviolet;
+}
+
+.coulisseJardin {
+  background-color: crimson;
+}
+
+.coulisseCour {
+  background-color: gold;
+}
+
+.salleDecors {
+  background-color: chartreuse;
+}
+
+.loges {
+  background-color: hotpink;
+}
+
+.salleCostumes {
+  background-color: darkorange;
 }
 
 #plateau {
   display: grid;
-  grid-template-columns: repeat(41, 1fr);
+  grid-template-columns: repeat(36, 1fr);
+  border-collapse: collapse;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
 }
