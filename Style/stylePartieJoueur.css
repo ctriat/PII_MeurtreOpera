@@ -2,7 +2,7 @@
   display: flex;
 }
 
-#plateau > div {
+.case {
   border: 1px solid black;
   border-left: none;
   border-bottom: none;
@@ -10,7 +10,22 @@
   width: 18px;
 }
 
-.balcon {
+.salle.bordureHaut {
+  border-top: 1px solid black;
+  height: 18px;
+}
+
+.salle.bordureDroite {
+  border-right: 1px solid black;
+  width: 18px;
+}
+
+.salle {
+  height: 19px;
+  width: 19px;
+}
+
+/*.balcon {
   background-color: aquamarine;
 }
 
@@ -44,12 +59,10 @@
 
 .salleCostumes {
   background-color: darkorange;
-}
+}*/
 
 #plateau {
   display: grid;
   grid-template-columns: repeat(36, 1fr);
-  border-collapse: collapse;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border: 1px solid black;
 }

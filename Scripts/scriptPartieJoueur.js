@@ -13,25 +13,48 @@ function generationPlateau() {
 
 function definitionPieces(x, y, casePlateau) {
   if (y < 3) {
-    casePlateau.className = 'balcon';
+    casePlateau.className = 'balcon salle';
+    definitionBordureDroite(y, 2, casePlateau);
   } else if (y < 15 && x < 3) {
-    casePlateau.className = 'bar';
+    casePlateau.className = 'bar salle';
+    definitionBordureDroite(y, 14, casePlateau);
   } else if (y < 31 && x < 3) {
-    casePlateau.className = 'coulisseJardin';
+    casePlateau.className = 'coulisseJardin salle';
+    definitionBordureDroite(y, 30, casePlateau);
   } else if (y >= 31 && x < 7) {
-    casePlateau.className = 'salleDecors';
+    casePlateau.className = 'salleDecors salle';
   } else if (y >= 31 && x >= 15) {
-    casePlateau.className = 'salleCostumes';
+    casePlateau.className = 'salleCostumes salle';
+    definitionBordureHaut(x, 15, casePlateau);
   } else if (y >= 31) {
-    casePlateau.className = 'loges';
+    casePlateau.className = 'loges salle';
+    definitionBordureHaut(x, 7, casePlateau);
   } else if (y >= 15 && x >= 19) {
-    casePlateau.className = 'coulisseCour';
+    casePlateau.className = 'coulisseCour salle';
+    definitionBordureHaut(x, 19, casePlateau);
+    definitionBordureDroite(y, 30, casePlateau);
   } else if (y >= 5 && y < 13 && x >= 6 && x < 16) {
-    casePlateau.className = 'fosse';
+    casePlateau.className = 'fosse salle';
+    definitionBordureHaut(x, 6, casePlateau);
+    definitionBordureDroite(y, 12, casePlateau);
   } else if (y >= 17 && y < 29 && x >= 7 && x < 15) {
-    casePlateau.className = 'scene';
+    casePlateau.className = 'scene salle';
+    definitionBordureHaut(x, 7, casePlateau);
+    definitionBordureDroite(y, 28, casePlateau);
   } else {
     casePlateau.className = 'case';
+  }
+}
+
+function definitionBordureHaut(x, nbLigne, casePlateau) {
+  if (x == nbLigne) {
+    casePlateau.className += ' bordureHaut';
+  }
+}
+
+function definitionBordureDroite(y, nbColonne, casePlateau) {
+  if (y == nbColonne) {
+    casePlateau.className += ' bordureDroite';
   }
 }
 
