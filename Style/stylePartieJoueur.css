@@ -2,12 +2,25 @@
   display: flex;
 }
 
+#plateau {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(36, 1fr);
+  border: 1px solid black;
+}
+
+/* Grille plateau */
 .case {
   border: 1px solid black;
   border-left: none;
   border-bottom: none;
   height: 18px;
   width: 18px;
+}
+
+.salle {
+  height: 19px;
+  width: 19px;
 }
 
 .salle.bordureHaut {
@@ -20,49 +33,94 @@
   width: 18px;
 }
 
-.salle {
-  height: 19px;
-  width: 19px;
+/* Nom salle */
+#plateau > span {
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/*.balcon {
-  background-color: aquamarine;
+#labelBalcon {
+  top: 200px;
+  left: 3px;
+}
+
+#labelFosse {
+  top: 200px;
+  left: 148.5px;
+}
+
+#labelScene {
+  top: 200px;
+  left: 414px;
+}
+
+#labelBar {
+  top: 19.5px;
+  left: 158px;
+}
+
+#labelCoulisseJardin {
+  top: 19.5px;
+  left: 362.5px;
+}
+
+#labelCoulisseCour {
+  bottom: 19.5px;
+  left: 366.5px;
+}
+
+#labelSalleDecors {
+  top: 49px;
+  right: 0px;
+  width: 97px;
+  text-align: center;
+}
+
+#labelLoges {
+  top: 200px;
+  left: 614.5px;
+}
+
+#labelSalleCostumes {
+  top: 334px;
+  right: 0px;
+  width: 97px;
+  text-align: center;
+}
+
+/* Couleur salle */
+.balcon {
+  background-color: rgba(187, 255, 187, 0.25);
 }
 
 .fosse {
-  background-color: cadetblue;
+  background-color: rgba(187, 187, 255, 0.25);
 }
 
 .scene {
-  background-color: chocolate;
+  background-color: rgba(187, 255, 255, 0.25);
 }
 
 .bar {
-  background-color: blueviolet;
+  background-color: rgba(221, 187, 221, 0.25);
 }
 
 .coulisseJardin {
-  background-color: crimson;
+  background-color: rgba(255, 255, 187, 0.25);
 }
 
 .coulisseCour {
-  background-color: gold;
+  background-color: rgba(255, 187, 187, 0.25);
 }
 
 .salleDecors {
-  background-color: chartreuse;
+  background-color: rgba(211, 169, 250, 0.25);
 }
 
 .loges {
-  background-color: hotpink;
+  background-color: rgba(248, 200, 220, 0.25);
 }
 
 .salleCostumes {
-  background-color: darkorange;
-}*/
-
-#plateau {
-  display: grid;
-  grid-template-columns: repeat(36, 1fr);
-  border: 1px solid black;
+  background-color: rgba(255, 213, 128, 0.25);
 }
