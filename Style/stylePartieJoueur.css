@@ -90,37 +90,37 @@
 
 /* Couleur salle */
 .balcon {
-  background-color: rgba(187, 255, 187, 0.25);
+  background-color: rgba(187, 255, 187, 0.5);
 }
 
 .fosse {
-  background-color: rgba(187, 187, 255, 0.25);
+  background-color: rgba(187, 187, 255, 0.5);
 }
 
 .scene {
-  background-color: rgba(187, 255, 255, 0.25);
+  background-color: rgba(187, 255, 255, 0.5);
 }
 
 .bar {
-  background-color: rgba(221, 187, 221, 0.25);
+  background-color: rgba(221, 187, 221, 0.5);
 }
 
 .coulisseJardin {
-  background-color: rgba(255, 255, 187, 0.25);
+  background-color: rgba(255, 255, 187, 0.5);
 }
 
 .coulisseCour {
-  background-color: rgba(255, 187, 187, 0.25);
+  background-color: rgba(255, 187, 187, 0.5);
 }
 
 .salleDecors {
-  background-color: rgba(211, 169, 250, 0.25);
+  background-color: rgba(211, 169, 250, 0.5);
 }
 
 .loges {
-  background-color: rgba(248, 200, 220, 0.25);
+  background-color: rgba(248, 200, 220, 0.5);
 }
 
 .salleCostumes {
-  background-color: rgba(255, 213, 128, 0.25);
+  background-color: rgba(255, 213, 128, 0.5);
 }

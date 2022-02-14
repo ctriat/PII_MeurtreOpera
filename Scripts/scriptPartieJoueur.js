@@ -5,6 +5,7 @@ function generationPlateau() {
       let casePlateau = document.createElement('div');
       casePlateau.id = x + ';' + y;
       definitionPieces(x, y, casePlateau);
+      definitionPortes(x, y, casePlateau);
       //casePlateau.innerHTML = casePlateau.id;
       document.getElementById('plateau').appendChild(casePlateau);
     }
@@ -55,6 +56,87 @@ function definitionBordureHaut(x, nbLigne, casePlateau) {
 function definitionBordureDroite(y, nbColonne, casePlateau) {
   if (y == nbColonne) {
     casePlateau.className += ' bordureDroite';
+  }
+}
+
+function definitionPortes(x, y, casePlateau) {
+  //Portes balcon
+  if (x == 4 || x == 17) {
+    if (y == 2) {
+      definitionPorte('d', casePlateau);
+    } else if (y == 3) {
+      definitionPorte('g', casePlateau);
+    }
+  }
+  //Portes salle des décors, des costumes et loges
+  if (x == 4 || x == 17 || x == 10) {
+    if (y == 30) {
+      definitionPorte('d', casePlateau);
+    } else if (y == 31) {
+      definitionPorte('g', casePlateau);
+    }
+  }
+  //Porte bar
+  else if (y == 13) {
+    if (x == 2) {
+      definitionPorte('b', casePlateau);
+    } else if (x == 3) {
+      definitionPorte('h', casePlateau);
+    }
+  }
+  //Portes coulisses côté jardin et côté cour
+  else if (y == 20) {
+    if (x == 2 || x == 18) {
+      definitionPorte('b', casePlateau);
+    } else if (x == 3 || x == 19) {
+      definitionPorte('h', casePlateau);
+    }
+  }
+  //Porte fosse
+  else if (y == 8) {
+    if (x == 5 || x == 15) {
+      definitionPorte('b', casePlateau);
+    } else if (x == 6 || x == 16) {
+      definitionPorte('h', casePlateau);
+    }
+  }
+  //Porte scene
+  else if (x == 11) {
+    if (y == 16) {
+      definitionPorte('d', casePlateau);
+    } else if (y == 17) {
+      definitionPorte('g', casePlateau);
+    }
+  } else if (y == 23) {
+    if (x == 6 || x == 14) {
+      definitionPorte('b', casePlateau);
+    } else if (x == 7 || x == 15) {
+      definitionPorte('h', casePlateau);
+    }
+  }
+}
+
+function definitionPorte(cotePorte, casePlateau) {
+  casePlateau.className += ' porte';
+
+  switch (cotePorte) {
+    //Porte sur le cote droit de la case
+    case 'd':
+      casePlateau.style.borderRight = 'none';
+      break;
+    //Porte sur le cote gauche de la case
+    case 'g':
+      casePlateau.style.borderLeft = 'none';
+      break;
+    //Porte sur le haut de la case
+    case 'h':
+      casePlateau.style.borderTop = 'none';
+      casePlateau.style.height = '19px';
+      break;
+    //Porte sur le bas de la case
+    case 'b':
+      casePlateau.style.borderBottom = 'none';
+      break;
   }
 }
 
