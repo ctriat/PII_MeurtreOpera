@@ -1,5 +1,6 @@
 #container {
   display: flex;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #plateau {
@@ -10,8 +11,12 @@
 }
 
 /* Grille plateau */
+#plateau > div {
+  position: relative;
+}
+
 .case {
-  border: 1px solid black;
+  border: 1px solid rgba(155, 155, 155, 1);
   border-left: none;
   border-bottom: none;
   height: 18px;
@@ -36,7 +41,7 @@
 /* Nom salle */
 #plateau > span {
   position: absolute;
-  font-family: Arial, Helvetica, sans-serif;
+  z-index: 1;
 }
 
 #labelBalcon {
@@ -94,7 +99,7 @@
 }
 
 .fosse {
-  background-color: rgba(187, 187, 255, 0.5);
+  background-color: rgba(255, 213, 128, 0.5);
 }
 
 .scene {
@@ -122,5 +127,28 @@
 }
 
 .salleCostumes {
-  background-color: rgba(255, 213, 128, 0.5);
+  background-color: rgba(187, 187, 255, 0.5);
+}
+
+/* Elements du plateau */
+
+:is(.case, .salle) > .joueur {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  text-align: center;
+  line-height: 14px;
+  font-size: 11px;
+  background-color: rgb(233, 218, 248);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#plateau div.salle > div.joueur {
+  left: 45%;
+  top: 45%;
 }

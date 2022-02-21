@@ -1,4 +1,6 @@
 //36 longueur 22 largeur
+let plateau = [];
+
 function generationPlateau() {
   for (let x = 0; x < 22; x++) {
     for (let y = 0; y < 36; y++) {
@@ -6,10 +8,26 @@ function generationPlateau() {
       casePlateau.id = x + ';' + y;
       definitionPieces(x, y, casePlateau);
       definitionPortes(x, y, casePlateau);
+      correctionBordure(x, y, casePlateau);
+      plateau.push(casePlateau);
       //casePlateau.innerHTML = casePlateau.id;
       document.getElementById('plateau').appendChild(casePlateau);
     }
   }
+
+  let yJoueur = 7;
+  for (let i = 1; i <= 4; i++) {
+    definitionJoueur(i, 21, yJoueur++);
+  }
+}
+
+function recupererCase(id) {
+  for (let casePlateau of plateau) {
+    if (casePlateau.id == id) {
+      return casePlateau;
+    }
+  }
+  return null;
 }
 
 function definitionPieces(x, y, casePlateau) {
@@ -138,6 +156,33 @@ function definitionPorte(cotePorte, casePlateau) {
       casePlateau.style.borderBottom = 'none';
       break;
   }
+}
+
+function correctionBordure(x, y, casePlateau) {
+  //Bordure bas de la salle
+  let caseHaut = recupererCase(x - 1 + ';' + y);
+  if (caseHaut && caseHaut.classList.contains('salle') && !caseHaut.classList.contains('porte')) {
+    if (!casePlateau.classList.contains('salle')) {
+      casePlateau.style.borderTop = '1px solid black';
+      casePlateau.style.height = '18px';
+    }
+  }
+
+  //Bordure gauche de la salle
+  let caseGauche = recupererCase(x + ';' + (y - 1));
+  if (caseGauche && casePlateau.classList.contains('salle') && !casePlateau.classList.contains('porte')) {
+    if (!caseGauche.classList.contains('salle')) {
+      caseGauche.style.borderRight = '1px solid black';
+    }
+  }
+}
+
+function definitionJoueur(id, x, y) {
+  let joueur = document.createElement('div');
+  joueur.id = id;
+  joueur.className = 'joueur';
+  joueur.textContent = id;
+  document.getElementById(x + ';' + y).appendChild(joueur);
 }
 
 generationPlateau();
