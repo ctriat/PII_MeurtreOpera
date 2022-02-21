@@ -1,6 +1,6 @@
-#container {
-  display: flex;
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --tailleAvecBord: 23px;
+  --tailleSansBord: 24px;
 }
 
 #plateau {
@@ -19,23 +19,23 @@
   border: 1px solid rgba(155, 155, 155, 1);
   border-left: none;
   border-bottom: none;
-  height: 18px;
-  width: 18px;
+  height: var(--tailleAvecBord);
+  width: var(--tailleAvecBord);
 }
 
 .salle {
-  height: 19px;
-  width: 19px;
+  height: var(--tailleSansBord);
+  width: var(--tailleSansBord);
 }
 
 .salle.bordureHaut {
   border-top: 1px solid black;
-  height: 18px;
+  height: var(--tailleAvecBord);
 }
 
 .salle.bordureDroite {
   border-right: 1px solid black;
-  width: 18px;
+  width: var(--tailleAvecBord);
 }
 
 /* Nom salle */
@@ -45,51 +45,51 @@
 }
 
 #labelBalcon {
-  top: 200px;
-  left: 3px;
+  top: 48.5%;
+  left: 1.3%;
 }
 
 #labelFosse {
-  top: 200px;
-  left: 148.5px;
+  top: 48.5%;
+  left: 22.4%;
 }
 
 #labelScene {
-  top: 200px;
-  left: 414px;
+  top: 48.5%;
+  left: 61.2%;
 }
 
 #labelBar {
-  top: 19.5px;
-  left: 158px;
+  top: 5.2%;
+  left: 23.5%;
 }
 
 #labelCoulisseJardin {
-  top: 19.5px;
-  left: 362.5px;
+  top: 5.2%;
+  left: 55.3%;
 }
 
 #labelCoulisseCour {
-  bottom: 19.5px;
-  left: 366.5px;
+  bottom: 5%;
+  left: 55.75%;
 }
 
 #labelSalleDecors {
-  top: 49px;
-  right: 0px;
-  width: 97px;
+  top: 12.6%;
+  right: 0%;
+  width: 13.69%;
   text-align: center;
 }
 
 #labelLoges {
-  top: 200px;
-  left: 614.5px;
+  top: 48.5%;
+  right: 4.5%;
 }
 
 #labelSalleCostumes {
-  top: 334px;
-  right: 0px;
-  width: 97px;
+  bottom: 12.4%;
+  right: 0%;
+  width: 13.69%;
   text-align: center;
 }
 
@@ -137,11 +137,10 @@
   z-index: 2;
   border: 1px solid black;
   border-radius: 50%;
-  width: 14px;
-  height: 14px;
+  width: 80%;
+  height: 80%;
   text-align: center;
-  line-height: 14px;
-  font-size: 11px;
+  font-size: 80%;
   background-color: rgb(233, 218, 248);
   left: 50%;
   top: 50%;
@@ -149,6 +148,8 @@
 }
 
 #plateau div.salle > div.joueur {
-  left: 45%;
-  top: 45%;
+  left: 52%;
+  top: 52%;
+  width: 76.7%;
+  height: 76.7%;
 }

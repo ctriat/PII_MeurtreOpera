@@ -1,0 +1,32 @@
+#container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#barreLaterale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 97vh;
+  justify-content: space-around;
+}
+
+#sectionTour {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #efefefff;
+  padding: 20px;
+  height: 35%;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+#barreLaterale img {
+  width: 50px;
+  height: 50px;
+}

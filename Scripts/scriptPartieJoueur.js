@@ -15,7 +15,7 @@ function generationPlateau() {
     }
   }
 
-  let yJoueur = 7;
+  let yJoueur = 13;
   for (let i = 1; i <= 4; i++) {
     definitionJoueur(i, 21, yJoueur++);
   }
@@ -149,7 +149,7 @@ function definitionPorte(cotePorte, casePlateau) {
     //Porte sur le haut de la case
     case 'h':
       casePlateau.style.borderTop = 'none';
-      casePlateau.style.height = '19px';
+      casePlateau.style.height = 'var(--tailleSansBord)';
       break;
     //Porte sur le bas de la case
     case 'b':
@@ -164,7 +164,6 @@ function correctionBordure(x, y, casePlateau) {
   if (caseHaut && caseHaut.classList.contains('salle') && !caseHaut.classList.contains('porte')) {
     if (!casePlateau.classList.contains('salle')) {
       casePlateau.style.borderTop = '1px solid black';
-      casePlateau.style.height = '18px';
     }
   }
 
