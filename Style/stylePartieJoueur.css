@@ -7,12 +7,19 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/*Barre laterale*/
+
 #barreLaterale {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 97vh;
   justify-content: space-around;
+}
+
+#barreLaterale img {
+  width: 50px;
+  height: 50px;
 }
 
 #sectionTour {
@@ -26,7 +33,54 @@
   border: 1px solid black;
 }
 
-#barreLaterale img {
-  width: 50px;
-  height: 50px;
+/*Elements partie*/
+
+#elemPartie {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: space-evenly;
+  width: 23%;
+  height: 97vh;
+}
+
+#infosPartie {
+  box-sizing: border-box;
+  width: 100%;
+  height: 20%;
+  padding: 15px;
+  border-radius: 20px;
+  border: 1px solid black;
+  background-color: #efefefff;
+  overflow: auto;
+}
+
+#sectionCartes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 55%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid black;
+  background-color: #efefefff;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30%;
+  height: 40%;
+  margin-bottom: 7px;
+  margin-top: 7px;
+  border-radius: 15px;
+  border: 1px solid black;
+  background-color: white;
 }

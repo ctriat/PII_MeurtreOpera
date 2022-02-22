@@ -19,6 +19,14 @@ function generationPlateau() {
   for (let i = 1; i <= 4; i++) {
     definitionJoueur(i, 21, yJoueur++);
   }
+
+  creationCarte('Armes', 'Collants');
+  creationCarte('Armes', 'Ruban');
+  creationCarte('Armes', 'Pointes');
+  creationCarte('Armes', 'Couteau');
+  creationCarte('Armes', 'Barre');
+  creationCarte('Armes', 'Projecteur');
+  //creationCarte('Armes', 'Pointes');
 }
 
 function recupererCase(id) {
@@ -182,6 +190,19 @@ function definitionJoueur(id, x, y) {
   joueur.className = 'joueur';
   joueur.textContent = id;
   document.getElementById(x + ';' + y).appendChild(joueur);
+}
+
+function creationCarte(typeCarte, nomCarte) {
+  let carte = document.createElement('div');
+  carte.className = 'carte';
+  let img = document.createElement('img');
+  img.src = '../Images/' + typeCarte + '/' + nomCarte + 'R.png';
+  img.alt = nomCarte;
+  carte.appendChild(img);
+  let legende = document.createElement('div');
+  legende.textContent = nomCarte;
+  carte.appendChild(legende);
+  document.getElementById('sectionCartes').appendChild(carte);
 }
 
 generationPlateau();
