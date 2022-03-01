@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <title>Plateau de jeu</title>
   <script src="../Scripts/scriptPartieJoueur.js" defer></script>
+  <script src="../Scripts/PopUp/scriptPopUp.js" defer></script>
   <link rel="stylesheet" href="../Style/styleGrilleJeu.css">
   <link rel="stylesheet" href="../Style/stylePartieJoueur.css">
+  <link rel="stylesheet" href="../Style/PopUp/stylePopUp.css">
 </head>
 
 <body>
@@ -37,6 +39,55 @@
       <div id="infosPartie">Messages par rapport à la partie</div>
       <div id="sectionCartes"></div>
     </div>
+
+    <!--Hypothese joueur-->
+    <div class="fondPopUp">
+      <div id="popUp">
+        <div id="barreLateralePopUp">
+          <img src="../Images/personnageR.png" alt="Personnage" />
+          <img src="../Images/horlogeR.png" alt="Horloge" />
+          <img src="../Images/blocNotesR.png" alt="Bloc-notes" />
+        </div>
+        <div id="popUpHypoA" class="cache">
+          <span class="titrePopUp">Réponse à l'hypothèse du joueur 2</span>
+          <span class="titreSectionPopUp">Cartes demandées par l'adversaire</span>
+          <div id="cartesHypoDA" class="sectionCartesPopUp"></div>
+          <span class="titreSectionPopUp">Vos cartes</span>
+          <div id="cartesHypoDJ" class="sectionCartesPopUp"></div>
+          <button id="validationHypoA" class="validationPopUp">Valider</button>
+        </div>
+        <div id="popUpHypoJ" class="cache">
+          <span class="titrePopUp">Votre hypothèse</span>
+          <span class="titreSectionPopUp">Les personnages</span>
+          <div id="cartesHypoP" class="sectionCartesPopUp"></div>
+          <span class="titreSectionPopUp">Les armes</span>
+          <div id="cartesHypoA" class="sectionCartesPopUp"></div>
+          <button id="validationHypoJ" class="validationPopUp">Valider</button>
+        </div>
+        <div id="popUpAccuJ" class="cache">
+          <span class="titrePopUp">Votre accusation</span>
+          <span class="titreSectionPopUp">Les personnages</span>
+          <div id="cartesAccuP" class="sectionCartesPopUp"></div>
+          <span class="titreSectionPopUp">Les armes</span>
+          <div id="cartesAccuA" class="sectionCartesPopUp"></div>
+          <button id="validationAccuJ" class="validationPopUp">Valider</button>
+        </div>
+        <div id="popUpValidAccuJ" class="cache">
+          <span class="titrePopUp">Résultats de votre accusation</span>
+          <span id="titreSectionValidAccuJ" class="titreSectionPopUp">Cartes à deviner</span>
+          <div id="cartesValidAccuJ" class="sectionCartesPopUp"></div>
+          <span id="texteValidAccuJ">Vous avez gagné !</span>
+          <button id="validationValidAccuJ" class="validationPopUp">Fermer</button>
+        </div>
+        <div id="popUpRepHypoJ" class="">
+          <span class="titrePopUp">Résultats de votre hypothèse</span>
+          <span id="titreSectionRepHypoJ" class="titreSectionPopUp">Cartes montrées par les autres joueurs</span>
+          <div id="cartesRepHypoJ" class="sectionCartesPopUp"></div>
+          <button id="validationRepHypoJ" class="validationPopUp">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
 </body>

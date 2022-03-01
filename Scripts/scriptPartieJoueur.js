@@ -20,12 +20,12 @@ function generationPlateau() {
     definitionJoueur(i, 21, yJoueur++);
   }
 
-  creationCarte('Armes', 'Collants');
-  creationCarte('Armes', 'Ruban');
-  creationCarte('Armes', 'Pointes');
-  creationCarte('Armes', 'Couteau');
-  creationCarte('Armes', 'Barre');
-  creationCarte('Armes', 'Projecteur');
+  creationCarte('Armes', 'Collants', 'sectionCartes');
+  creationCarte('Armes', 'Ruban', 'sectionCartes');
+  creationCarte('Armes', 'Pointes', 'sectionCartes');
+  creationCarte('Armes', 'Couteau', 'sectionCartes');
+  creationCarte('Armes', 'Barre', 'sectionCartes');
+  creationCarte('Armes', 'Projecteur', 'sectionCartes');
   //creationCarte('Armes', 'Pointes');
 }
 
@@ -192,7 +192,7 @@ function definitionJoueur(id, x, y) {
   document.getElementById(x + ';' + y).appendChild(joueur);
 }
 
-function creationCarte(typeCarte, nomCarte) {
+function creationCarte(typeCarte, nomCarte, nomSection) {
   let carte = document.createElement('div');
   carte.className = 'carte';
   let img = document.createElement('img');
@@ -202,7 +202,7 @@ function creationCarte(typeCarte, nomCarte) {
   let legende = document.createElement('div');
   legende.textContent = nomCarte;
   carte.appendChild(legende);
-  document.getElementById('sectionCartes').appendChild(carte);
+  document.getElementById(nomSection).appendChild(carte);
 }
 
 generationPlateau();

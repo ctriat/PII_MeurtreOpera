@@ -84,3 +84,7 @@
   border: 1px solid black;
   background-color: white;
 }
+
+.carte img {
+  width: 50%;
+}
