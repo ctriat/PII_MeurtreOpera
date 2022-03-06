@@ -1,3 +1,13 @@
+function recupererCase(id) {
+  for (let casePlateau of plateau) {
+    if (casePlateau.id == id) {
+      return casePlateau;
+    }
+  }
+  return null;
+}
+
+/* Initialisation de la partie */
 //36 longueur 22 largeur
 let plateau = [];
 
@@ -6,20 +16,22 @@ function generationPlateau() {
     for (let y = 0; y < 36; y++) {
       let casePlateau = document.createElement('div');
       casePlateau.id = x + ';' + y;
+      casePlateau.addEventListener('click', clicCase);
       definitionPieces(x, y, casePlateau);
       definitionPortes(x, y, casePlateau);
       correctionBordure(x, y, casePlateau);
       plateau.push(casePlateau);
-      //casePlateau.innerHTML = casePlateau.id;
       document.getElementById('plateau').appendChild(casePlateau);
     }
   }
 
-  let yJoueur = 13;
+  //Creation des joueurs
+  let yJoueur = 7;
   for (let i = 1; i <= 4; i++) {
     definitionJoueur(i, 21, yJoueur++);
   }
 
+  //Creation des cartes du joueur
   creationCarte('Armes', 'Collants', 'sectionCartes');
   creationCarte('Armes', 'Ruban', 'sectionCartes');
   creationCarte('Armes', 'Pointes', 'sectionCartes');
@@ -27,15 +39,6 @@ function generationPlateau() {
   creationCarte('Armes', 'Barre', 'sectionCartes');
   creationCarte('Armes', 'Projecteur', 'sectionCartes');
   //creationCarte('Armes', 'Pointes');
-}
-
-function recupererCase(id) {
-  for (let casePlateau of plateau) {
-    if (casePlateau.id == id) {
-      return casePlateau;
-    }
-  }
-  return null;
 }
 
 function definitionPieces(x, y, casePlateau) {
@@ -186,7 +189,7 @@ function correctionBordure(x, y, casePlateau) {
 
 function definitionJoueur(id, x, y) {
   let joueur = document.createElement('div');
-  joueur.id = id;
+  joueur.id = 'j' + id;
   joueur.className = 'joueur';
   joueur.textContent = id;
   document.getElementById(x + ';' + y).appendChild(joueur);
@@ -206,3 +209,17 @@ function creationCarte(typeCarte, nomCarte, nomSection) {
 }
 
 generationPlateau();
+
+/* En cours de jeu */
+
+function clicCase() {
+  console.log(this.id);
+  deplacementJoueur('j1', this.id);
+}
+
+function deplacementJoueur(idJ, idNCase) {
+  let joueur = document.getElementById(idJ);
+  parent.children.length == 1;
+  joueur.parentElement.removeChild(joueur);
+  document.getElementById(idNCase).appendChild(joueur);
+}
