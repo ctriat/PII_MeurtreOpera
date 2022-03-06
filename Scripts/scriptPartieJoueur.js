@@ -39,6 +39,8 @@ function generationPlateau() {
   creationCarte('Armes', 'Barre', 'sectionCartes');
   creationCarte('Armes', 'Projecteur', 'sectionCartes');
   //creationCarte('Armes', 'Pointes');
+
+  ajoutMessage('Bienvenue dans la partie de cluedo vous etes le joueur 1');
 }
 
 function definitionPieces(x, y, casePlateau) {
@@ -219,7 +221,16 @@ function clicCase() {
 
 function deplacementJoueur(idJ, idNCase) {
   let joueur = document.getElementById(idJ);
-  parent.children.length == 1;
-  joueur.parentElement.removeChild(joueur);
-  document.getElementById(idNCase).appendChild(joueur);
+  let nouvCase = document.getElementById(idNCase);
+  if (nouvCase.children.length == 0) {
+    joueur.parentElement.removeChild(joueur);
+    nouvCase.appendChild(joueur);
+    ajoutMessage('Deplacement du joueur en ' + idNCase);
+  }
+}
+
+function ajoutMessage(message) {
+  let infosPartie = document.getElementById('infosPartie');
+  infosPartie.innerHTML += '<br />' + message;
+  infosPartie.scrollTo(0, infosPartie.scrollHeight);
 }
