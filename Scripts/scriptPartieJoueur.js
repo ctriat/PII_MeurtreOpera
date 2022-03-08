@@ -12,6 +12,7 @@ function recupererCase(id) {
 /* Initialisation de la partie */
 //36 longueur 22 largeur
 let plateau = [];
+let numJoueur;
 
 function generationPlateau() {
   for (let x = 0; x < 22; x++) {
@@ -42,7 +43,10 @@ function generationPlateau() {
   creationCarte('Armes', 'Projecteur', 'sectionCartes');
   //creationCarte('Armes', 'Pointes');
 
-  ajoutMessage('Bienvenue dans la partie de cluedo vous êtes le joueur 1');
+  socket.on('attribNumJ', (numJ) => {
+    numJoueur = numJ;
+    ajoutMessage(`Bienvenue dans la partie de cluedo vous êtes le joueur ${numJoueur}`);
+  });
 }
 
 function definitionPieces(x, y, casePlateau) {

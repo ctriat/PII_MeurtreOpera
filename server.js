@@ -8,8 +8,11 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/Pages/partieJoueur.html');
 });
 
+let numJoueur = 1;
 io.on('connection', (socket) => {
   console.log('a user connected');
+  io.to(socket.id).emit('attribNumJ', numJoueur);
+  numJoueur++;
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
