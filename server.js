@@ -8,4 +8,15 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/Pages/partieJoueur.html');
 });
 
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('demDistrib', (msg) => {
+    console.log('distribution des cartes ' + msg);
+  });
+});
+
 server.listen(3000);

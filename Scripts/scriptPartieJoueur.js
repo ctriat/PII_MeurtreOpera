@@ -1,3 +1,5 @@
+var socket = io();
+
 function recupererCase(id) {
   for (let casePlateau of plateau) {
     if (casePlateau.id == id) {
@@ -217,6 +219,7 @@ generationPlateau();
 function clicCase() {
   console.log(this.id);
   deplacementJoueur('j1', this.id);
+  socket.emit('demDistrib', 'ok');
 }
 
 function deplacementJoueur(idJ, idNCase) {
