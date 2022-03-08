@@ -40,7 +40,7 @@ function generationPlateau() {
   creationCarte('Armes', 'Projecteur', 'sectionCartes');
   //creationCarte('Armes', 'Pointes');
 
-  ajoutMessage('Bienvenue dans la partie de cluedo vous etes le joueur 1');
+  ajoutMessage('Bienvenue dans la partie de cluedo vous êtes le joueur 1');
 }
 
 function definitionPieces(x, y, casePlateau) {
@@ -80,13 +80,13 @@ function definitionPieces(x, y, casePlateau) {
 
 function definitionBordureHaut(x, nbLigne, casePlateau) {
   if (x == nbLigne) {
-    casePlateau.className += ' bordureHaut';
+    casePlateau.classList.add('bordureHaut');
   }
 }
 
 function definitionBordureDroite(y, nbColonne, casePlateau) {
   if (y == nbColonne) {
-    casePlateau.className += ' bordureDroite';
+    casePlateau.classList.add('bordureDroite');
   }
 }
 
@@ -148,7 +148,7 @@ function definitionPortes(x, y, casePlateau) {
 }
 
 function definitionPorte(cotePorte, casePlateau) {
-  casePlateau.className += ' porte';
+  casePlateau.classList.add('porte');
 
   switch (cotePorte) {
     //Porte sur le cote droit de la case
@@ -225,7 +225,7 @@ function deplacementJoueur(idJ, idNCase) {
   if (nouvCase.children.length == 0) {
     joueur.parentElement.removeChild(joueur);
     nouvCase.appendChild(joueur);
-    ajoutMessage('Deplacement du joueur en ' + idNCase);
+    ajoutMessage('Déplacement du joueur en ' + idNCase);
   }
 }
 
@@ -233,4 +233,14 @@ function ajoutMessage(message) {
   let infosPartie = document.getElementById('infosPartie');
   infosPartie.innerHTML += '<br />' + message;
   infosPartie.scrollTo(0, infosPartie.scrollHeight);
+}
+
+function affichagePopUp(idPopUp) {
+  document.getElementById('fondPopUp').classList.remove('cache');
+  document.getElementById(idPopUp).classList.remove('cache');
+}
+
+function masquagePopUp(idPopUp) {
+  document.getElementById('fondPopUp').classList.add('cache');
+  document.getElementById(idPopUp).classList.add('cache');
 }

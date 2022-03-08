@@ -19,8 +19,8 @@
       <img src="../Images/horlogeR.png" alt="Horloge" />
       <div id="sectionTour">
         <img src="../Images/desR.png" alt="Dés" />
-        <img src="../Images/hypotheseR.png" alt="Hypothèse" />
-        <img src="../Images/accuserR.png" alt="Accuser" />
+        <img src="../Images/hypotheseR.png" alt="Hypothèse" onclick="affichagePopUp('popUpHypoJ')" />
+        <img src="../Images/accuserR.png" alt="Accuser" onclick="affichagePopUp('popUpAccuJ')" />
       </div>
       <img src="../Images/blocNotesR.png" alt="Bloc-notes" />
     </div>
@@ -41,7 +41,7 @@
     </div>
 
     <!--Hypothese joueur-->
-    <div class="fondPopUp cache">
+    <div id="fondPopUp" class="cache">
       <div id="popUp">
         <div id="barreLateralePopUp">
           <img src="../Images/personnageR.png" alt="Personnage" />
@@ -54,7 +54,7 @@
           <div id="cartesHypoDA" class="sectionCartesPopUp"></div>
           <span class="titreSectionPopUp">Vos cartes</span>
           <div id="cartesHypoDJ" class="sectionCartesPopUp"></div>
-          <button id="validationHypoA" class="validationPopUp">Valider</button>
+          <button id="validationHypoA" class="validationPopUp" onclick="masquagePopUp('popUpHypoA')">Valider</button>
         </div>
         <div id="popUpHypoJ" class="cache">
           <span class="titrePopUp">Votre hypothèse</span>
@@ -62,7 +62,7 @@
           <div id="cartesHypoP" class="sectionCartesPopUp"></div>
           <span class="titreSectionPopUp">Les armes</span>
           <div id="cartesHypoA" class="sectionCartesPopUp"></div>
-          <button id="validationHypoJ" class="validationPopUp">Valider</button>
+          <button id="validationHypoJ" class="validationPopUp" onclick="masquagePopUp('popUpHypoJ')">Valider</button>
         </div>
         <div id="popUpAccuJ" class="cache">
           <span class="titrePopUp">Votre accusation</span>
@@ -70,20 +70,20 @@
           <div id="cartesAccuP" class="sectionCartesPopUp"></div>
           <span class="titreSectionPopUp">Les armes</span>
           <div id="cartesAccuA" class="sectionCartesPopUp"></div>
-          <button id="validationAccuJ" class="validationPopUp">Valider</button>
+          <button id="validationAccuJ" class="validationPopUp" onclick="masquagePopUp('popUpAccuJ')">Valider</button>
         </div>
         <div id="popUpValidAccuJ" class="cache">
           <span class="titrePopUp">Résultats de votre accusation</span>
           <span id="titreSectionValidAccuJ" class="titreSectionPopUp">Cartes à deviner</span>
           <div id="cartesValidAccuJ" class="sectionCartesPopUp"></div>
           <span id="texteValidAccuJ">Vous avez gagné !</span>
-          <button id="validationValidAccuJ" class="validationPopUp">Fermer</button>
+          <button id="validationValidAccuJ" class="validationPopUp" onclick="masquagePopUp('popUpValidAccuJ')">Fermer</button>
         </div>
-        <div id="popUpRepHypoJ" class="">
+        <div id="popUpRepHypoJ" class="cache">
           <span class="titrePopUp">Résultats de votre hypothèse</span>
           <span id="titreSectionRepHypoJ" class="titreSectionPopUp">Cartes montrées par les autres joueurs</span>
           <div id="cartesRepHypoJ" class="sectionCartesPopUp"></div>
-          <button id="validationRepHypoJ" class="validationPopUp">Fermer</button>
+          <button id="validationRepHypoJ" class="validationPopUp" onclick="masquagePopUp('popUpRepHypoJ')">Fermer</button>
         </div>
       </div>
     </div>
