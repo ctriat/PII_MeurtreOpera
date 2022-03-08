@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
 });
 
 let numJoueur = 1;
+let listeArmes = ['Barre', 'Collants', 'Couteau', 'Pointes', 'Projecteur', 'Ruban'];
 io.on('connection', (socket) => {
   console.log('a user connected');
   io.to(socket.id).emit('attribNumJ', numJoueur);
@@ -19,6 +20,7 @@ io.on('connection', (socket) => {
 
   socket.on('demDistrib', (msg) => {
     console.log('distribution des cartes ' + msg);
+    io.to(socket.id).emit('attribNumJ', numJoueur);
   });
 });
 
