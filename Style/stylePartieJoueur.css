@@ -44,10 +44,6 @@
   height: 97vh;
 }
 
-::-webkit-scrollbar-track {
-  border-radius: 20px;
-}
-
 #infosPartie {
   box-sizing: border-box;
   overflow: auto;
@@ -88,6 +84,7 @@
   border-radius: 15px;
   border: 1px solid black;
   background-color: white;
+  font-size: 13px;
 }
 
 .carte img {

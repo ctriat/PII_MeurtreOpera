@@ -13,6 +13,7 @@ function recupererCase(id) {
 //36 longueur 22 largeur
 let plateau = [];
 let numJoueur;
+let cartes = [];
 
 function generationPlateau() {
   for (let x = 0; x < 22; x++) {
@@ -35,13 +36,11 @@ function generationPlateau() {
   }
 
   //Creation des cartes du joueur
-  creationCarte('Armes', 'Collants', 'sectionCartes');
-  creationCarte('Armes', 'Ruban', 'sectionCartes');
-  creationCarte('Armes', 'Pointes', 'sectionCartes');
-  creationCarte('Armes', 'Couteau', 'sectionCartes');
-  creationCarte('Armes', 'Barre', 'sectionCartes');
-  creationCarte('Armes', 'Projecteur', 'sectionCartes');
-  //creationCarte('Armes', 'Pointes');
+  socket.on('distribCartes', (listeCartes) => {
+    listeCartes.forEach((carte) => {
+      creationCarte(carte.type, carte.nom, 'sectionCartes');
+    });
+  });
 
   socket.on('attribNumJ', (numJ) => {
     numJoueur = numJ;
