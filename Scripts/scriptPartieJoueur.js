@@ -13,7 +13,6 @@ function recupererCase(id) {
 //36 longueur 22 largeur
 let plateau = [];
 let numJoueur;
-let cartes = [];
 
 function generationPlateau() {
   for (let x = 0; x < 22; x++) {
@@ -222,7 +221,11 @@ generationPlateau();
 function clicCase() {
   console.log(this.id);
   deplacementJoueur('j1', this.id);
-  socket.emit('demDistrib', 'ok');
+  socket.emit('demListeCartes', numJoueur);
+
+  socket.on('listeCartes', (listeC) => {
+    ajoutMessage(listeC);
+  });
 }
 
 function deplacementJoueur(idJ, idNCase) {

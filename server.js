@@ -11,6 +11,7 @@ app.get('/', (req, res) => {
 let numJoueur = 1;
 let listeArmes = ['Barre', 'Collants', 'Couteau', 'Pointes', 'Projecteur', 'Ruban'];
 let listePersonnages = ['Barmaid', 'Chorégraphe', 'Couturière', 'Danseuse', 'Gérant', 'Technicien'];
+let listeCartesJ = [];
 let carteDistrib = [];
 let carteDistribMaxLong = listeArmes.length + listePersonnages.length;
 
@@ -24,7 +25,7 @@ io.on('connection', (socket) => {
   //Distrib carte
   let listeCartes = [];
   let i = 0;
-  while (i < 6 && carteDistrib.length != carteDistribMaxLong) {
+  while (i < 6 && carteDistrib.length < carteDistribMaxLong) {
     //Random entre 0 et 1
     let numTab = Math.floor(Math.random() * 2);
     if (numTab == 0) {
@@ -34,7 +35,23 @@ io.on('connection', (socket) => {
     }
     i++;
   }
+  listeCartesJ.push(listeCartes);
   io.to(socket.id).emit('distribCartes', listeCartes);
+
+  //Demande de récupérer sa liste de cartes
+  socket.on('demListeCartes', (idJ) => {
+    io.to(socket.id).emit('listeCartes', listeCartesJ[idJ - 1]);
+  });
+
+  //Demande de récupérer les armes
+  socket.on('demArmes', () => {
+    io.to(socket.id).emit('listeArmes', listeArmes);
+  });
+
+  //Demande de récupérer les personnages
+  socket.on('demPerso', () => {
+    io.to(socket.id).emit('listePerso', listePersonnages);
+  });
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
