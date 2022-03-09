@@ -1,3 +1,5 @@
+let popUpActu;
+
 // Pop up hypothese adversaire
 creationCarte('Armes', 'Pointes', 'cartesHypoDA');
 creationCarte('Armes', 'Projecteur', 'cartesHypoDA');
@@ -7,18 +9,18 @@ creationCarte('Armes', 'Pointes', 'cartesHypoDJ');
 creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');
 
 // Pop up hypothese joueur
-creationCarte('Armes', 'Pointes', 'cartesHypoP');
+/*creationCarte('Armes', 'Pointes', 'cartesHypoP');
 creationCarte('Armes', 'Projecteur', 'cartesHypoP');
 creationCarte('Armes', 'Pointes', 'cartesHypoP');
 creationCarte('Armes', 'Pointes', 'cartesHypoP');
 creationCarte('Armes', 'Projecteur', 'cartesHypoP');
-creationCarte('Armes', 'Pointes', 'cartesHypoP');
-creationCarte('Armes', 'Projecteur', 'cartesHypoA');
+creationCarte('Armes', 'Pointes', 'cartesHypoP');*/
+/*creationCarte('Armes', 'Projecteur', 'cartesHypoA');
 creationCarte('Armes', 'Pointes', 'cartesHypoA');
 creationCarte('Armes', 'Projecteur', 'cartesHypoA');
 creationCarte('Armes', 'Projecteur', 'cartesHypoA');
 creationCarte('Armes', 'Pointes', 'cartesHypoA');
-creationCarte('Armes', 'Projecteur', 'cartesHypoA');
+creationCarte('Armes', 'Projecteur', 'cartesHypoA');*/
 
 // Pop up accusation joueur
 creationCarte('Armes', 'Pointes', 'cartesAccuP');
@@ -68,9 +70,39 @@ function masquagePopUp(idPopUp) {
   document.getElementById('fondPopUp').classList.add('cache');
   document.getElementById(idPopUp).classList.add('cache');
 }
+
+function affichageHypoJ() {
+  popUpActu = 'popUpHypoJ';
+  affichagePopUp(popUpActu);
+  socket.emit('demArmes');
+  socket.emit('demPerso');
+}
+
 //Demande de la liste des cartes du joueur
 socket.on('listeCartes', (listeC) => {
-  listeC.forEach((element) => {
-    ajoutMessage(element.nom);
+  listeC.forEach((carte) => {
+    ajoutMessage(carte.nom);
+  });
+});
+
+//Demande de la liste des cartes du joueur
+socket.on('listeArmes', (listeA) => {
+  let sectionInserArme;
+  if (popUpActu == 'popUpHypoJ') {
+    sectionInserArme = 'cartesHypoA';
+  }
+  listeA.forEach((arme) => {
+    creationCarte('Armes', arme, sectionInserArme);
+  });
+});
+
+//Demande de la liste des cartes du joueur
+socket.on('listePerso', (listeP) => {
+  let sectionInserPerso;
+  if (popUpActu == 'popUpHypoJ') {
+    sectionInserPerso = 'cartesHypoP';
+  }
+  listeP.forEach((perso) => {
+    creationCarte('Personnages', perso, sectionInserPerso);
   });
 });

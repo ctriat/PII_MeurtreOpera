@@ -50,6 +50,7 @@
 .sectionCartesPopUp .carte {
   width: 13%;
   height: 80%;
+  font-size: 10px;
 }
 
 .validationPopUp {
