@@ -22,10 +22,10 @@ io.on('connection', (socket) => {
   numJoueur++;
 
   //Distrib carte
-  //Random entre 0 et 1
   let listeCartes = [];
   let i = 0;
   while (i < 6 && carteDistrib.length != carteDistribMaxLong) {
+    //Random entre 0 et 1
     let numTab = Math.floor(Math.random() * 2);
     if (numTab == 0) {
       choixCarte('Armes', listeArmes, listeCartes);
@@ -48,6 +48,7 @@ function choixCarte(type, liste, lCartes) {
   };
   let carteChoisie;
   do {
+    //Random entre 0 et 5 (nombre d'éléments dans les tableaux de carte)
     carteChoisie = liste[Math.floor(Math.random() * 6)];
   } while (carteDistrib.includes(carteChoisie) && carteDistrib.length != carteDistribMaxLong);
   carte.nom = carteChoisie;
