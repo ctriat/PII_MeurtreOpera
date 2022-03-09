@@ -58,3 +58,19 @@ function afficherNomJoueur(nomJoueur, nomSection) {
   joueur.innerHTML = nomJoueur;
   nomSection.appendChild(joueur);
 }
+
+function affichagePopUp(idPopUp) {
+  document.getElementById('fondPopUp').classList.remove('cache');
+  document.getElementById(idPopUp).classList.remove('cache');
+}
+
+function masquagePopUp(idPopUp) {
+  document.getElementById('fondPopUp').classList.add('cache');
+  document.getElementById(idPopUp).classList.add('cache');
+}
+//Demande de la liste des cartes du joueur
+socket.on('listeCartes', (listeC) => {
+  listeC.forEach((element) => {
+    ajoutMessage(element.nom);
+  });
+});

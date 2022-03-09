@@ -219,13 +219,7 @@ generationPlateau();
 /* En cours de jeu */
 
 function clicCase() {
-  console.log(this.id);
   deplacementJoueur('j1', this.id);
-  socket.emit('demListeCartes', numJoueur);
-
-  socket.on('listeCartes', (listeC) => {
-    ajoutMessage(listeC);
-  });
 }
 
 function deplacementJoueur(idJ, idNCase) {
@@ -242,14 +236,4 @@ function ajoutMessage(message) {
   let infosPartie = document.getElementById('infosPartie');
   infosPartie.innerHTML += '<br />' + message;
   infosPartie.scrollTo(0, infosPartie.scrollHeight);
-}
-
-function affichagePopUp(idPopUp) {
-  document.getElementById('fondPopUp').classList.remove('cache');
-  document.getElementById(idPopUp).classList.remove('cache');
-}
-
-function masquagePopUp(idPopUp) {
-  document.getElementById('fondPopUp').classList.add('cache');
-  document.getElementById(idPopUp).classList.add('cache');
 }
