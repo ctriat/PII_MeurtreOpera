@@ -204,6 +204,7 @@ function definitionJoueur(id, x, y) {
 function creationCarte(typeCarte, nomCarte, nomSection) {
   let carte = document.createElement('div');
   carte.className = 'carte';
+  carte.dataset.nomCarte = nomCarte;
   let img = document.createElement('img');
   img.src = '../Images/' + typeCarte + '/' + nomCarte + 'R.png';
   img.alt = nomCarte;

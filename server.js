@@ -44,13 +44,13 @@ io.on('connection', (socket) => {
   });
 
   //Demande de récupérer les armes
-  socket.on('demArmes', () => {
-    io.to(socket.id).emit('listeArmes', listeArmes);
+  socket.on('demArmesInit', () => {
+    io.to(socket.id).emit('listeArmesInit', listeArmes);
   });
 
   //Demande de récupérer les personnages
-  socket.on('demPerso', () => {
-    io.to(socket.id).emit('listePerso', listePersonnages);
+  socket.on('demPersoInit', () => {
+    io.to(socket.id).emit('listePersoInit', listePersonnages);
   });
 
   socket.on('disconnect', () => {
