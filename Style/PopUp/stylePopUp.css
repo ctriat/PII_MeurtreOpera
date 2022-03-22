@@ -78,6 +78,10 @@
   margin-bottom: -2%;
 }
 
+.carteSelec {
+  border: 3px solid #581845;
+}
+
 /* Pop up hypothese adversaire */
 
 #popUpHypoA {

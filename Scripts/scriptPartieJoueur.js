@@ -9,7 +9,7 @@ function recupererCase(id) {
   return null;
 }
 
-/* Initialisation de la partie */
+// ---- Initialisation de la partie ----
 //36 longueur 22 largeur
 let plateau = [];
 let numJoueur;
@@ -213,11 +213,12 @@ function creationCarte(typeCarte, nomCarte, nomSection) {
   legende.textContent = nomCarte;
   carte.appendChild(legende);
   document.getElementById(nomSection).appendChild(carte);
+  return carte;
 }
 
 generationPlateau();
 
-/* En cours de jeu */
+// ---- En cours de jeu ----
 
 function clicCase() {
   deplacementJoueur('j1', this.id);

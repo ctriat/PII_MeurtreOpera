@@ -46,6 +46,16 @@ function masquagePopUp(idPopUp) {
   document.getElementById(idPopUp).classList.add('cache');
 }
 
+function clicCarte() {
+  if (this.classList.contains('carteSelec')) {
+    this.classList.remove('carteSelec');
+  } else {
+    this.classList.add('carteSelec');
+  }
+}
+
+// ---- Reponses serveur ----
+
 //Demande de la liste des cartes du joueur
 socket.on('listeCartes', (listeC) => {
   listeC.forEach((carte) => {
@@ -56,16 +66,16 @@ socket.on('listeCartes', (listeC) => {
 //Demande de la liste des armes pour initialiser les pop up
 socket.on('listeArmesInit', (listeA) => {
   listeA.forEach((arme) => {
-    creationCarte('Armes', arme, 'cartesHypoA');
-    creationCarte('Armes', arme, 'cartesAccuA');
+    creationCarte('Armes', arme, 'cartesHypoA').addEventListener('click', clicCarte);
+    creationCarte('Armes', arme, 'cartesAccuA').addEventListener('click', clicCarte);
   });
 });
 
 //Demande de la liste des personnages pour initialiser les pop up
 socket.on('listePersoInit', (listeP) => {
   listeP.forEach((perso) => {
-    creationCarte('Personnages', perso, 'cartesHypoP');
-    creationCarte('Personnages', perso, 'cartesAccuP');
+    creationCarte('Personnages', perso, 'cartesHypoP').addEventListener('click', clicCarte);
+    creationCarte('Personnages', perso, 'cartesAccuP').addEventListener('click', clicCarte);
   });
 });
 
