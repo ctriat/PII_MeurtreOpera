@@ -1,7 +1,7 @@
 // Pop up hypothese adversaire
-creationCarte('Armes', 'Pointes', 'cartesHypoDA');
+/*creationCarte('Armes', 'Pointes', 'cartesHypoDA');
 creationCarte('Armes', 'Projecteur', 'cartesHypoDA');
-creationCarte('Armes', 'Pointes', 'cartesHypoDA');
+creationCarte('Armes', 'Pointes', 'cartesHypoDA');*/
 creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');
 creationCarte('Armes', 'Pointes', 'cartesHypoDJ');
 creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');
@@ -57,12 +57,14 @@ function clicCarte() {
 function validHypoJ() {
   masquagePopUp('popUpHypoJ');
   let cartes = document.getElementById('popUpHypoJ').getElementsByClassName('carteSelec');
-  let nomCarteSelec = [];
+  //Chaque element est un couple type de carte / nom de carte
+  let carteSelec = [];
   Array.from(cartes).forEach(function (c) {
-    nomCarteSelec.push(c.dataset.nomCarte);
+    let carte = { typeCarte: c.dataset.typeCarte, nomCarte: c.dataset.nomCarte };
+    carteSelec.push(carte);
     c.classList.remove('carteSelec');
   });
-  socket.emit('envoiHypoJ', nomCarteSelec);
+  socket.emit('envoiHypoJ', carteSelec);
 }
 
 // ---- Reponses serveur ----
@@ -92,7 +94,10 @@ socket.on('listePersoInit', (listeP) => {
 
 //Recuperation hypothese adversaire
 socket.on('recupHypoA', (hypo) => {
-  console.log(hypo);
+  affichagePopUp('popUpHypoA');
+  hypo.forEach((carte) => {
+    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDA');
+  });
 });
 
 initPopUp();
