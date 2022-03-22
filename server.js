@@ -53,6 +53,11 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('listePersoInit', listePersonnages);
   });
 
+  //Envoi de l'hypothèse du joueur
+  socket.on('envoiHypoJ', (hypo) => {
+    socket.broadcast.emit('recupHypoA', hypo);
+  });
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });

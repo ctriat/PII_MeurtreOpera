@@ -54,6 +54,17 @@ function clicCarte() {
   }
 }
 
+function validHypoJ() {
+  masquagePopUp('popUpHypoJ');
+  let cartes = document.getElementById('popUpHypoJ').getElementsByClassName('carteSelec');
+  let nomCarteSelec = [];
+  Array.from(cartes).forEach(function (c) {
+    nomCarteSelec.push(c.dataset.nomCarte);
+    c.classList.remove('carteSelec');
+  });
+  socket.emit('envoiHypoJ', nomCarteSelec);
+}
+
 // ---- Reponses serveur ----
 
 //Demande de la liste des cartes du joueur
@@ -77,6 +88,11 @@ socket.on('listePersoInit', (listeP) => {
     creationCarte('Personnages', perso, 'cartesHypoP').addEventListener('click', clicCarte);
     creationCarte('Personnages', perso, 'cartesAccuP').addEventListener('click', clicCarte);
   });
+});
+
+//Recuperation hypothese adversaire
+socket.on('recupHypoA', (hypo) => {
+  console.log(hypo);
 });
 
 initPopUp();
