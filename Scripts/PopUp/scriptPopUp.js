@@ -58,19 +58,27 @@ function validHypoJ() {
   masquagePopUp('popUpHypoJ');
   let cartes = document.getElementById('popUpHypoJ').getElementsByClassName('carteSelec');
   //Chaque element est un couple type de carte / nom de carte
+  let carteSelec = recupCartesSelect(cartes);
+  socket.emit('envoiHypoJ', carteSelec);
+}
+
+function validHypoA() {
+  masquagePopUp('popUpHypoA');
+  let cartes = document.getElementById('popUpHypoA').getElementsByClassName('carteSelec');
+  let cartesSelect = recupCartesSelect(cartes);
+  console.log(cartesSelect);
+  let cartesSuppr = document.getElementById('popUpHypoA').getElementsByClassName('carte');
+  while (cartesSuppr.length > 0) cartesSuppr[0].remove();
+}
+
+function recupCartesSelect(cartes) {
   let carteSelec = [];
   Array.from(cartes).forEach(function (c) {
     let carte = { typeCarte: c.dataset.typeCarte, nomCarte: c.dataset.nomCarte };
     carteSelec.push(carte);
     c.classList.remove('carteSelec');
   });
-  socket.emit('envoiHypoJ', carteSelec);
-}
-
-function validHypoA() {
-  masquagePopUp('popUpHypoA');
-  let cartes = document.getElementById('popUpHypoA').getElementsByClassName('carte');
-  while (cartes.length > 0) cartes[0].remove();
+  return carteSelec;
 }
 
 // ---- Reponses serveur ----
@@ -109,10 +117,8 @@ socket.on('recupHypoA', (hypo) => {
 
 //Recuperation cartes possedes etant dans hypo adversaire
 socket.on('recupCartesCorrespHypoA', (cartes) => {
-  console.log('ok');
   cartes.forEach((carte) => {
-    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDJ');
-    console.log('cree');
+    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDJ').addEventListener('click', clicCarte);
   });
 });
 
