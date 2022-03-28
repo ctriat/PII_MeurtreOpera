@@ -1,20 +1,12 @@
-// Pop up hypothese adversaire
-/*creationCarte('Armes', 'Pointes', 'cartesHypoDA');
-creationCarte('Armes', 'Projecteur', 'cartesHypoDA');
-creationCarte('Armes', 'Pointes', 'cartesHypoDA');*/
-/*creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');
-creationCarte('Armes', 'Pointes', 'cartesHypoDJ');
-creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');*/
-
 // Pop up validation accusation joueur
 creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
 creationCarte('Armes', 'Projecteur', 'cartesValidAccuJ');
 creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
 
 // Pop up reponse hypotheses joueur
-ajoutCarteRepHypoJ('J1', 'Armes', 'Pointes', 'cartesRepHypoJ');
+/*ajoutCarteRepHypoJ('J1', 'Armes', 'Pointes', 'cartesRepHypoJ');
 ajoutCarteRepHypoJ('J2', 'Armes', 'Projecteur', 'cartesRepHypoJ');
-ajoutCarteRepHypoJ('J3', 'Armes', 'Pointes', 'cartesRepHypoJ');
+ajoutCarteRepHypoJ('J3', 'Armes', 'Pointes', 'cartesRepHypoJ');*/
 
 function initPopUp() {
   socket.emit('demArmesInit');
@@ -66,8 +58,14 @@ function validHypoA() {
   masquagePopUp('popUpHypoA');
   let cartes = document.getElementById('popUpHypoA').getElementsByClassName('carteSelec');
   let cartesSelect = recupCartesSelect(cartes);
-  console.log(cartesSelect);
   let cartesSuppr = document.getElementById('popUpHypoA').getElementsByClassName('carte');
+  while (cartesSuppr.length > 0) cartesSuppr[0].remove();
+  socket.emit('envoiRepHypoA', cartesSelect, numJoueur);
+}
+
+function validRepHypoJ() {
+  masquagePopUp('popUpRepHypoJ');
+  let cartesSuppr = document.getElementById('popUpRepHypoJ').getElementsByClassName('sectionCarteRepHypoJ');
   while (cartesSuppr.length > 0) cartesSuppr[0].remove();
 }
 
@@ -119,6 +117,16 @@ socket.on('recupHypoA', (hypo) => {
 socket.on('recupCartesCorrespHypoA', (cartes) => {
   cartes.forEach((carte) => {
     creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDJ').addEventListener('click', clicCarte);
+  });
+});
+
+//Reponse a l'hypothese posee
+socket.on('repHypo', (rep) => {
+  affichagePopUp('popUpRepHypoJ');
+  rep.forEach((repJ) => {
+    repJ.cartes.forEach((carte) => {
+      ajoutCarteRepHypoJ('J' + repJ.numJ, carte.typeCarte, carte.nomCarte, 'cartesRepHypoJ');
+    });
   });
 });
 

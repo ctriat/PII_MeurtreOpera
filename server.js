@@ -9,14 +9,18 @@ app.get('/', (req, res) => {
 });
 
 let numJoueur = 1;
+let nbConnect = 0;
 let listeArmes = ['Barre', 'Collants', 'Couteau', 'Pointes', 'Projecteur', 'Ruban'];
 let listePersonnages = ['Barmaid', 'Chorégraphe', 'Couturière', 'Danseuse', 'Gérant', 'Technicien'];
 let listeCartesJ = [];
 let carteDistrib = [];
 let carteDistribMaxLong = listeArmes.length + listePersonnages.length;
+let repHypoA = [];
+let idJCourant = null;
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  nbConnect++;
 
   //Attribution numéro
   io.to(socket.id).emit('attribNumJ', numJoueur);
@@ -55,6 +59,7 @@ io.on('connection', (socket) => {
 
   //Envoi de l'hypothèse du joueur
   socket.on('envoiHypoJ', (hypo) => {
+    idJCourant = socket.id;
     socket.broadcast.emit('recupHypoA', hypo);
   });
 
@@ -70,8 +75,19 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('recupCartesCorrespHypoA', cartesSimil);
   });
 
+  //Recuperation rep hypo adversaire
+  socket.on('envoiRepHypoA', (cartes, numJoueur) => {
+    repHypoA.push({ numJ: numJoueur, cartes: cartes });
+    if (nbConnect - 1 <= repHypoA.length) {
+      io.to(idJCourant).emit('repHypo', repHypoA);
+      repHypoA = [];
+      idJCourant = null;
+    }
+  });
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
+    nbConnect--;
   });
 });
 
