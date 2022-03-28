@@ -2,9 +2,9 @@
 /*creationCarte('Armes', 'Pointes', 'cartesHypoDA');
 creationCarte('Armes', 'Projecteur', 'cartesHypoDA');
 creationCarte('Armes', 'Pointes', 'cartesHypoDA');*/
-creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');
+/*creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');
 creationCarte('Armes', 'Pointes', 'cartesHypoDJ');
-creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');
+creationCarte('Armes', 'Projecteur', 'cartesHypoDJ');*/
 
 // Pop up validation accusation joueur
 creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
@@ -67,12 +67,18 @@ function validHypoJ() {
   socket.emit('envoiHypoJ', carteSelec);
 }
 
+function validHypoA() {
+  masquagePopUp('popUpHypoA');
+  let cartes = document.getElementById('popUpHypoA').getElementsByClassName('carte');
+  while (cartes.length > 0) cartes[0].remove();
+}
+
 // ---- Reponses serveur ----
 
 //Demande de la liste des cartes du joueur
 socket.on('listeCartes', (listeC) => {
   listeC.forEach((carte) => {
-    ajoutMessage(carte.nom);
+    ajoutMessage(carte.nomCarte);
   });
 });
 
@@ -97,6 +103,16 @@ socket.on('recupHypoA', (hypo) => {
   affichagePopUp('popUpHypoA');
   hypo.forEach((carte) => {
     creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDA');
+  });
+  socket.emit('demCartesCorrespHypoA', hypo, numJoueur);
+});
+
+//Recuperation cartes possedes etant dans hypo adversaire
+socket.on('recupCartesCorrespHypoA', (cartes) => {
+  console.log('ok');
+  cartes.forEach((carte) => {
+    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDJ');
+    console.log('cree');
   });
 });
 

@@ -37,7 +37,7 @@ function generationPlateau() {
   //Creation des cartes du joueur
   socket.on('distribCartes', (listeCartes) => {
     listeCartes.forEach((carte) => {
-      creationCarte(carte.type, carte.nom, 'sectionCartes');
+      creationCarte(carte.typeCarte, carte.nomCarte, 'sectionCartes');
     });
   });
 

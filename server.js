@@ -58,6 +58,18 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('recupHypoA', hypo);
   });
 
+  //Envoi des cartes correspondantes à l'hypo du joueur en fonction de son num
+  socket.on('demCartesCorrespHypoA', (hypo, numJoueur) => {
+    let cartes = listeCartesJ[numJoueur - 1];
+    let cartesSimil = [];
+    cartes.forEach((cJ) => {
+      hypo.forEach((cHypo) => {
+        if (cJ.nomCarte == cHypo.nomCarte) cartesSimil.push(cJ);
+      });
+    });
+    io.to(socket.id).emit('recupCartesCorrespHypoA', cartesSimil);
+  });
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
@@ -65,15 +77,15 @@ io.on('connection', (socket) => {
 
 function choixCarte(type, liste, lCartes) {
   let carte = {
-    type: type,
-    nom: '',
+    typeCarte: type,
+    nomCarte: '',
   };
   let carteChoisie;
   do {
     //Random entre 0 et 5 (nombre d'éléments dans les tableaux de carte)
     carteChoisie = liste[Math.floor(Math.random() * 6)];
   } while (carteDistrib.includes(carteChoisie) && carteDistrib.length != carteDistribMaxLong);
-  carte.nom = carteChoisie;
+  carte.nomCarte = carteChoisie;
   carteDistrib.push(carteChoisie);
   lCartes.push(carte);
 }
