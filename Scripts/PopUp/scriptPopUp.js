@@ -3,11 +3,6 @@ creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
 creationCarte('Armes', 'Projecteur', 'cartesValidAccuJ');
 creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
 
-// Pop up reponse hypotheses joueur
-/*ajoutCarteRepHypoJ('J1', 'Armes', 'Pointes', 'cartesRepHypoJ');
-ajoutCarteRepHypoJ('J2', 'Armes', 'Projecteur', 'cartesRepHypoJ');
-ajoutCarteRepHypoJ('J3', 'Armes', 'Pointes', 'cartesRepHypoJ');*/
-
 function initPopUp() {
   socket.emit('demArmesInit');
   socket.emit('demPersoInit');
@@ -67,6 +62,13 @@ function validRepHypoJ() {
   masquagePopUp('popUpRepHypoJ');
   let cartesSuppr = document.getElementById('popUpRepHypoJ').getElementsByClassName('sectionCarteRepHypoJ');
   while (cartesSuppr.length > 0) cartesSuppr[0].remove();
+}
+
+function validAccu() {
+  masquagePopUp('popUpAccuJ');
+  let cartes = document.getElementById('popUpAccuJ').getElementsByClassName('carteSelec');
+  //Chaque element est un couple type de carte / nom de carte
+  let carteSelec = recupCartesSelect(cartes);
 }
 
 function recupCartesSelect(cartes) {
