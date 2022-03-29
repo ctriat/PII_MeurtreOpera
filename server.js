@@ -12,11 +12,24 @@ let numJoueur = 1;
 let nbConnect = 0;
 let listeArmes = ['Barre', 'Collants', 'Couteau', 'Pointes', 'Projecteur', 'Ruban'];
 let listePersonnages = ['Barmaid', 'Chorégraphe', 'Couturière', 'Danseuse', 'Gérant', 'Technicien'];
+let listeSalles = ['Balcon', 'Fosse', 'Scène', 'Bar', 'Coulisses côté jardin', 'Coulisses côté cour', 'Salle des décors', 'Loges', 'Salle des costumes'];
+let nbADistrib = 0;
+let nbPDistrib = 0;
+let nbSDistrib = 0;
 let listeCartesJ = [];
+let listeCartesATrouver = [];
 let carteDistrib = [];
-let carteDistribMaxLong = listeArmes.length + listePersonnages.length;
+let carteDistribMaxLong = listeArmes.length + listePersonnages.length + listeSalles.length;
 let repHypoA = [];
 let idJCourant = null;
+
+//Choix cartes a trouver
+choixCarte('Armes', listeArmes, listeCartesATrouver);
+nbADistrib++;
+choixCarte('Personnages', listePersonnages, listeCartesATrouver);
+nbPDistrib++;
+choixCarte('Salles', listeSalles, listeCartesATrouver);
+nbSDistrib++;
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -29,15 +42,23 @@ io.on('connection', (socket) => {
   //Distrib carte
   let listeCartes = [];
   let i = 0;
+  //3 joueurs donc 6 cartes
   while (i < 6 && carteDistrib.length < carteDistribMaxLong) {
-    //Random entre 0 et 1
-    let numTab = Math.floor(Math.random() * 2);
-    if (numTab == 0) {
+    //Random entre 0 et 2
+    let numTab = Math.floor(Math.random() * 3);
+    if (numTab == 0 && nbADistrib < listeArmes.length) {
       choixCarte('Armes', listeArmes, listeCartes);
-    } else {
+      nbADistrib++;
+      i++;
+    } else if (numTab == 1 && nbPDistrib < listePersonnages.length) {
       choixCarte('Personnages', listePersonnages, listeCartes);
+      nbPDistrib++;
+      i++;
+    } else if (nbSDistrib < listeSalles.length) {
+      choixCarte('Salles', listeSalles, listeCartes);
+      nbSDistrib++;
+      i++;
     }
-    i++;
   }
   listeCartesJ.push(listeCartes);
   io.to(socket.id).emit('distribCartes', listeCartes);
@@ -99,8 +120,13 @@ function choixCarte(type, liste, lCartes) {
   let carteChoisie;
   do {
     //Random entre 0 et 5 (nombre d'éléments dans les tableaux de carte)
-    carteChoisie = liste[Math.floor(Math.random() * 6)];
-  } while (carteDistrib.includes(carteChoisie) && carteDistrib.length != carteDistribMaxLong);
+    let nbMaxElem = 6;
+    //Random entre 0 et 8 si c'est les salles
+    if (type == 'Salles') {
+      nbMaxElem = 9;
+    }
+    carteChoisie = liste[Math.floor(Math.random() * nbMaxElem)];
+  } while (carteDistrib.includes(carteChoisie));
   carte.nomCarte = carteChoisie;
   carteDistrib.push(carteChoisie);
   lCartes.push(carte);
