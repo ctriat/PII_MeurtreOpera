@@ -1,7 +1,7 @@
 // Pop up validation accusation joueur
-creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
+/*creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
 creationCarte('Armes', 'Projecteur', 'cartesValidAccuJ');
-creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
+creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');*/
 
 function initPopUp() {
   socket.emit('demArmesInit');
@@ -69,6 +69,13 @@ function validAccu() {
   let cartes = document.getElementById('popUpAccuJ').getElementsByClassName('carteSelec');
   //Chaque element est un couple type de carte / nom de carte
   let carteSelec = recupCartesSelect(cartes);
+  socket.emit('verifAccu', carteSelec);
+}
+
+function validValidationAccu() {
+  masquagePopUp('popUpValidAccuJ');
+  let cartesSuppr = document.getElementById('popUpValidAccuJ').getElementsByClassName('carte');
+  while (cartesSuppr.length > 0) cartesSuppr[0].remove();
 }
 
 function recupCartesSelect(cartes) {
@@ -130,6 +137,19 @@ socket.on('repHypo', (rep) => {
       ajoutCarteRepHypoJ('J' + repJ.numJ, carte.typeCarte, carte.nomCarte, 'cartesRepHypoJ');
     });
   });
+});
+
+//Reponse à l'accusation en affichant si le joueur est gagnant ou non
+socket.on('validAccu', (valide, cartesATrouver) => {
+  affichagePopUp('popUpValidAccuJ');
+  cartesATrouver.forEach((carte) => {
+    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesValidAccuJ');
+  });
+  if(valide){
+    document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez gagné !';
+  } else{
+    document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez perdu !';
+  }
 });
 
 initPopUp();

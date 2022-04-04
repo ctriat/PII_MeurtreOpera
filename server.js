@@ -28,8 +28,10 @@ choixCarte('Armes', listeArmes, listeCartesATrouver);
 nbADistrib++;
 choixCarte('Personnages', listePersonnages, listeCartesATrouver);
 nbPDistrib++;
-choixCarte('Salles', listeSalles, listeCartesATrouver);
+//choixCarte('Salles', listeSalles, listeCartesATrouver);
 nbSDistrib++;
+
+console.log(listeCartesATrouver);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -104,6 +106,17 @@ io.on('connection', (socket) => {
       repHypoA = [];
       idJCourant = null;
     }
+  });
+
+  //Verification cartes accusation sont les mêmes que celles à trouver
+  socket.on('verifAccu', (cartes) => {
+    let valide = true;
+    cartes.forEach(c => {
+      if(!listeCartesATrouver.some(cTrouv => cTrouv.nomCarte == c.nomCarte)){
+        valide = false;
+      }
+    });
+    io.to(socket.id).emit('validAccu', valide, listeCartesATrouver);
   });
 
   socket.on('disconnect', () => {
