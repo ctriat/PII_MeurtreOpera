@@ -8,6 +8,8 @@
   display: grid;
   grid-template-columns: repeat(36, 1fr);
   border: 1px solid black;
+  width: 862px;
+height: 527px;
 }
 
 /* Grille plateau */
