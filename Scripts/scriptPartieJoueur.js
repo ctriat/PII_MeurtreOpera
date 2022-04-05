@@ -186,7 +186,11 @@ function correctionBordure(x, y, casePlateau) {
 
   //Bordure gauche de la salle
   let caseGauche = recupererCase(x + ';' + (y - 1));
-  if (caseGauche && casePlateau.classList.contains('salle') && !casePlateau.classList.contains('porte')) {
+  if (
+    caseGauche &&
+    casePlateau.classList.contains('salle') &&
+    !casePlateau.classList.contains('porte')
+  ) {
     if (!caseGauche.classList.contains('salle')) {
       caseGauche.style.borderRight = '1px solid black';
     }
@@ -222,7 +226,7 @@ generationPlateau();
 // ---- En cours de jeu ----
 
 function clicCase() {
-  deplacementJoueur('j1', this.id);
+  deplacementJoueur('j' + numJoueur, this.id);
 }
 
 function deplacementJoueur(idJ, idNCase) {

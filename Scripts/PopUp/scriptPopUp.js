@@ -60,7 +60,9 @@ function validHypoA() {
 
 function validRepHypoJ() {
   masquagePopUp('popUpRepHypoJ');
-  let cartesSuppr = document.getElementById('popUpRepHypoJ').getElementsByClassName('sectionCarteRepHypoJ');
+  let cartesSuppr = document
+    .getElementById('popUpRepHypoJ')
+    .getElementsByClassName('sectionCarteRepHypoJ');
   while (cartesSuppr.length > 0) cartesSuppr[0].remove();
 }
 
@@ -125,7 +127,10 @@ socket.on('recupHypoA', (hypo) => {
 //Recuperation cartes possedes etant dans hypo adversaire
 socket.on('recupCartesCorrespHypoA', (cartes) => {
   cartes.forEach((carte) => {
-    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDJ').addEventListener('click', clicCarte);
+    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDJ').addEventListener(
+      'click',
+      clicCarte
+    );
   });
 });
 
@@ -145,9 +150,9 @@ socket.on('validAccu', (valide, cartesATrouver) => {
   cartesATrouver.forEach((carte) => {
     creationCarte(carte.typeCarte, carte.nomCarte, 'cartesValidAccuJ');
   });
-  if(valide){
+  if (valide) {
     document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez gagné !';
-  } else{
+  } else {
     document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez perdu !';
   }
 });

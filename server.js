@@ -12,7 +12,17 @@ let numJoueur = 1;
 let nbConnect = 0;
 let listeArmes = ['Barre', 'Collants', 'Couteau', 'Pointes', 'Projecteur', 'Ruban'];
 let listePersonnages = ['Barmaid', 'Chorégraphe', 'Couturière', 'Danseuse', 'Gérant', 'Technicien'];
-let listeSalles = ['Balcon', 'Fosse', 'Scène', 'Bar', 'Coulisses côté jardin', 'Coulisses côté cour', 'Salle des décors', 'Loges', 'Salle des costumes'];
+let listeSalles = [
+  'Balcon',
+  'Fosse',
+  'Scène',
+  'Bar',
+  'Coulisses côté jardin',
+  'Coulisses côté cour',
+  'Salle des décors',
+  'Loges',
+  'Salle des costumes',
+];
 let nbADistrib = 0;
 let nbPDistrib = 0;
 let nbSDistrib = 0;
@@ -29,7 +39,7 @@ nbADistrib++;
 choixCarte('Personnages', listePersonnages, listeCartesATrouver);
 nbPDistrib++;
 //choixCarte('Salles', listeSalles, listeCartesATrouver);
-nbSDistrib++;
+//nbSDistrib++;
 
 console.log(listeCartesATrouver);
 
@@ -111,8 +121,8 @@ io.on('connection', (socket) => {
   //Verification cartes accusation sont les mêmes que celles à trouver
   socket.on('verifAccu', (cartes) => {
     let valide = true;
-    cartes.forEach(c => {
-      if(!listeCartesATrouver.some(cTrouv => cTrouv.nomCarte == c.nomCarte)){
+    cartes.forEach((c) => {
+      if (!listeCartesATrouver.some((cTrouv) => cTrouv.nomCarte == c.nomCarte)) {
         valide = false;
       }
     });
