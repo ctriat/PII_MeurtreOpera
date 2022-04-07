@@ -30,7 +30,7 @@ function generationPlateau() {
 
   //Creation des joueurs
   let yJoueur = 7;
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 3; i++) {
     definitionJoueur(i, 21, yJoueur++);
   }
 
@@ -226,7 +226,10 @@ generationPlateau();
 // ---- En cours de jeu ----
 
 function clicCase() {
-  deplacementJoueur('j' + numJoueur, this.id);
+  let idJ = 'j' + numJoueur;
+  let idCase = this.id;
+  deplacementJoueur(idJ, idCase);
+  socket.emit('modifPosJ', idJ, idCase);
 }
 
 function deplacementJoueur(idJ, idNCase) {
@@ -235,9 +238,13 @@ function deplacementJoueur(idJ, idNCase) {
   if (nouvCase.children.length == 0) {
     joueur.parentElement.removeChild(joueur);
     nouvCase.appendChild(joueur);
-    ajoutMessage('Déplacement du joueur en ' + idNCase);
+    ajoutMessage('Déplacement du joueur ' + idJ + ' en ' + idNCase);
   }
 }
+
+socket.on('modifPosA', (idJ, idCase) => {
+  deplacementJoueur(idJ, idCase);
+});
 
 function ajoutMessage(message) {
   let infosPartie = document.getElementById('infosPartie');

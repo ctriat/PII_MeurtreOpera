@@ -30,6 +30,7 @@ let listeCartesJ = [];
 let listeCartesATrouver = [];
 let carteDistrib = [];
 let carteDistribMaxLong = listeArmes.length + listePersonnages.length + listeSalles.length;
+let positionJ = []; // Premiere val du tab correspond au joueur 1, deuxieme joueur 2...
 let repHypoA = [];
 let idJCourant = null;
 
@@ -88,6 +89,12 @@ io.on('connection', (socket) => {
   //Demande de récupérer les personnages
   socket.on('demPersoInit', () => {
     io.to(socket.id).emit('listePersoInit', listePersonnages);
+  });
+
+  //Modification position joueur
+  socket.on('modifPosJ', (idJ, idCase) => {
+    positionJ[idJ - 1] = idCase;
+    socket.broadcast.emit('modifPosA', idJ, idCase);
   });
 
   //Envoi de l'hypothèse du joueur

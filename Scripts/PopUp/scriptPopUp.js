@@ -1,8 +1,3 @@
-// Pop up validation accusation joueur
-/*creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');
-creationCarte('Armes', 'Projecteur', 'cartesValidAccuJ');
-creationCarte('Armes', 'Pointes', 'cartesValidAccuJ');*/
-
 function initPopUp() {
   socket.emit('demArmesInit');
   socket.emit('demPersoInit');
