@@ -1,18 +1,10 @@
 var socket = io();
 
-function recupererCase(id) {
-  for (let casePlateau of plateau) {
-    if (casePlateau.id == id) {
-      return casePlateau;
-    }
-  }
-  return null;
-}
-
 // ---- Initialisation de la partie ----
 //36 longueur 22 largeur
 let plateau = [];
 let numJoueur;
+let salleActu;
 
 function generationPlateau() {
   for (let x = 0; x < 22; x++) {
@@ -177,7 +169,7 @@ function definitionPorte(cotePorte, casePlateau) {
 
 function correctionBordure(x, y, casePlateau) {
   //Bordure bas de la salle
-  let caseHaut = recupererCase(x - 1 + ';' + y);
+  let caseHaut = document.getElementById(x - 1 + ';' + y);
   if (caseHaut && caseHaut.classList.contains('salle') && !caseHaut.classList.contains('porte')) {
     if (!casePlateau.classList.contains('salle')) {
       casePlateau.style.borderTop = '1px solid black';
@@ -185,7 +177,7 @@ function correctionBordure(x, y, casePlateau) {
   }
 
   //Bordure gauche de la salle
-  let caseGauche = recupererCase(x + ';' + (y - 1));
+  let caseGauche = document.getElementById(x + ';' + (y - 1));
   if (
     caseGauche &&
     casePlateau.classList.contains('salle') &&
@@ -229,7 +221,7 @@ function clicCase() {
   let idJ = 'j' + numJoueur;
   let idCase = this.id;
   deplacementJoueur(idJ, idCase);
-  socket.emit('modifPosJ', idJ, idCase);
+  socket.emit('modifPosJ', numJoueur, idCase);
 }
 
 function deplacementJoueur(idJ, idNCase) {
@@ -239,11 +231,16 @@ function deplacementJoueur(idJ, idNCase) {
     joueur.parentElement.removeChild(joueur);
     nouvCase.appendChild(joueur);
     ajoutMessage('Déplacement du joueur ' + idJ + ' en ' + idNCase);
+    if (nouvCase.classList.contains('salle')) {
+      salleActu = caseJ.classList[0];
+    } else {
+      salleActu = null;
+    }
   }
 }
 
 socket.on('modifPosA', (idJ, idCase) => {
-  deplacementJoueur(idJ, idCase);
+  deplacementJoueur('j' + idJ, idCase);
 });
 
 function ajoutMessage(message) {

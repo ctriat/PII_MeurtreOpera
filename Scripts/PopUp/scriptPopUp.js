@@ -36,6 +36,13 @@ function clicCarte() {
   }
 }
 
+function affHypoJ() {
+  //socket.emit('demPosJ', numJoueur);
+  if (salleActu != null) {
+    affichagePopUp('popUpHypoJ');
+  }
+}
+
 function validHypoJ() {
   masquagePopUp('popUpHypoJ');
   let cartes = document.getElementById('popUpHypoJ').getElementsByClassName('carteSelec');
@@ -85,6 +92,36 @@ function recupCartesSelect(cartes) {
   return carteSelec;
 }
 
+function recupCarteSalle(nomSalle) {
+  let nomC = '';
+  switch (nomSalle) {
+    case 'balcon':
+      break;
+    case 'bar':
+      break;
+    case 'coulisseJardin':
+      break;
+    case 'salleDecors':
+      break;
+    case 'salleCostumes':
+      break;
+    case 'loges':
+      break;
+    case 'coulisseCour':
+      break;
+    case 'fosse':
+      break;
+    case 'scene':
+      break;
+  }
+  if (nomCarte != '') {
+    return {
+      typeCarte: 'Salles',
+      nomCarte: nomC,
+    };
+  }
+}
+
 // ---- Reponses serveur ----
 
 //Demande de la liste des cartes du joueur
@@ -109,6 +146,17 @@ socket.on('listePersoInit', (listeP) => {
     creationCarte('Personnages', perso, 'cartesAccuP').addEventListener('click', clicCarte);
   });
 });
+
+/*//Recuperation de la position du joueur
+socket.on('recupPosJ', (pos) => {
+  caseJ = document.getElementById(pos);
+  if (caseJ.classList.contains('salle')) {
+    affichagePopUp('popUpHypoJ');
+    salleActu = caseJ.classList[0]; 
+    //stocker dans variable et remettre salle a null apres l'avoir recuperer
+    console.log(caseJ.classList);
+  }
+});*/
 
 //Recuperation hypothese adversaire
 socket.on('recupHypoA', (hypo) => {

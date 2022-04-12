@@ -97,6 +97,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('modifPosA', idJ, idCase);
   });
 
+  /*//Demande de la position du joueur
+  socket.on('demPosJ', (idJ) => {
+    io.to(socket.id).emit('recupPosJ', positionJ[idJ - 1]);
+  });*/
+
   //Envoi de l'hypothèse du joueur
   socket.on('envoiHypoJ', (hypo) => {
     idJCourant = socket.id;
