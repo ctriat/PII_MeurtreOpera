@@ -40,7 +40,10 @@ function clicCarte() {
 
 function affHypoJ() {
   //socket.emit('demPosJ', numJoueur);
-  if (salleActu != null) {
+  if (
+    salleActu != null &&
+    !document.getElementById('sectionTour').classList.contains('desactSectionTour')
+  ) {
     affichagePopUp('popUpHypoJ');
   }
 }
@@ -71,12 +74,16 @@ function validRepHypoJ() {
     .getElementById('popUpRepHypoJ')
     .getElementsByClassName('sectionCarteRepHypoJ');
   while (cartesSuppr.length > 0) cartesSuppr[0].remove();
+  socket.emit('finTour');
 }
 
 // --- Accusation ---
 
 function affAccu() {
-  if (salleActu != null) {
+  if (
+    salleActu != null &&
+    !document.getElementById('sectionTour').classList.contains('desactSectionTour')
+  ) {
     affichagePopUp('popUpAccuJ');
   }
 }
@@ -96,6 +103,7 @@ function validValidationAccu() {
   masquagePopUp('popUpValidAccuJ');
   let cartesSuppr = document.getElementById('popUpValidAccuJ').getElementsByClassName('carte');
   while (cartesSuppr.length > 0) cartesSuppr[0].remove();
+  socket.emit('finTour');
 }
 
 function recupCartesSelect(cartes) {

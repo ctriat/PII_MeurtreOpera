@@ -31,6 +31,10 @@
   border: 1px solid black;
 }
 
+.desactSectionTour {
+  opacity: 40%;
+}
+
 /*Elements partie*/
 
 #elemPartie {

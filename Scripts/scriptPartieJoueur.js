@@ -234,9 +234,9 @@ function deplacementJoueur(idJ, idNCase) {
     if (idJ == 'j' + numJoueur) {
       if (nouvCase.classList.contains('salle')) {
         salleActu = nouvCase.classList[0];
-        console.log(salleActu);
       } else {
         salleActu = null;
+        socket.emit('finTour');
       }
     }
   }
@@ -247,8 +247,31 @@ socket.on('modifPosA', (idJ, idCase) => {
   deplacementJoueur('j' + idJ, idCase);
 });
 
+//Changement de tour de jeu
+socket.on('changTour', (tourNumJ) => {
+  if (tourNumJ == numJoueur) {
+    document.getElementById('sectionTour').classList.remove('desactSectionTour');
+  } else {
+    document.getElementById('sectionTour').classList.add('desactSectionTour');
+  }
+});
+
+function lanceDes() {
+  if (!document.getElementById('sectionTour').classList.contains('desactSectionTour')) {
+    let msg =
+      'Le joueur ' + numJoueur + ' avance de ' + (Math.floor(Math.random() * 12) + 1) + ' cases';
+    ajoutMessage(msg);
+    socket.emit('envoiMsg', msg);
+  }
+}
+
 function ajoutMessage(message) {
   let infosPartie = document.getElementById('infosPartie');
   infosPartie.innerHTML += '<br />' + message;
   infosPartie.scrollTo(0, infosPartie.scrollHeight);
 }
+
+//Reception message
+socket.on('recepMsg', (msg) => {
+  ajoutMessage(msg);
+});

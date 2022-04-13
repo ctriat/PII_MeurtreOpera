@@ -8,8 +8,8 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/Pages/partieJoueur.html');
 });
 
-let numJoueur = 1;
-let nbConnect = 0;
+let numJoueur = 1; //Numero du prochain joueur connecté
+let nbConnect = 0; //Nombre de joueurs connectés
 let listeArmes = ['Barre', 'Collants', 'Couteau', 'Pointes', 'Projecteur', 'Ruban'];
 let listePersonnages = ['Barmaid', 'Chorégraphe', 'Couturière', 'Danseuse', 'Gérant', 'Technicien'];
 let listeSalles = [
@@ -26,13 +26,14 @@ let listeSalles = [
 let nbADistrib = 0;
 let nbPDistrib = 0;
 let nbSDistrib = 0;
-let listeCartesJ = [];
+let listeCartesJ = []; //Liste des cartes des joueurs avec dans la premiere case celle du joueur 1...
 let listeCartesATrouver = [];
 let carteDistrib = [];
 let carteDistribMaxLong = listeArmes.length + listePersonnages.length + listeSalles.length;
+let tourNumJ = 1; //Numero du joueur dont c'est le tour actuellement
 let positionJ = []; // Premiere val du tab correspond au joueur 1, deuxieme joueur 2...
-let repHypoA = [];
-let idJCourant = null;
+let repHypoA = []; //Stocke les réponses a l'hypothese du joueur dont c'est le tour
+let idJCourant = null; //Identifiant socket du joueur dont c'est le tour
 
 //Choix cartes a trouver
 choixCarte('Armes', listeArmes, listeCartesATrouver);
@@ -51,6 +52,9 @@ io.on('connection', (socket) => {
   //Attribution numéro
   io.to(socket.id).emit('attribNumJ', numJoueur);
   numJoueur++;
+
+  //Definition de si c'est son tour ou non
+  io.to(socket.id).emit('changTour', tourNumJ);
 
   //Distrib carte
   let listeCartes = [];
@@ -75,6 +79,11 @@ io.on('connection', (socket) => {
   }
   listeCartesJ.push(listeCartes);
   io.to(socket.id).emit('distribCartes', listeCartes);
+
+  //Envoi d'un message aux autres joueurs
+  socket.on('envoiMsg', (msg) => {
+    socket.broadcast.emit('recepMsg', msg);
+  });
 
   //Demande de récupérer sa liste de cartes
   socket.on('demListeCartes', (idJ) => {
@@ -101,6 +110,16 @@ io.on('connection', (socket) => {
   socket.on('demPosJ', (idJ) => {
     io.to(socket.id).emit('recupPosJ', positionJ[idJ - 1]);
   });*/
+
+  //Fin du tour du joueur actuel
+  socket.on('finTour', () => {
+    if (tourNumJ == 3) {
+      tourNumJ = 1;
+    } else {
+      tourNumJ++;
+    }
+    io.sockets.emit('changTour', tourNumJ);
+  });
 
   //Envoi de l'hypothèse du joueur
   socket.on('envoiHypoJ', (hypo) => {
