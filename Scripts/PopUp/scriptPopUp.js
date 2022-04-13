@@ -36,6 +36,8 @@ function clicCarte() {
   }
 }
 
+// --- Hypothese ---
+
 function affHypoJ() {
   //socket.emit('demPosJ', numJoueur);
   if (salleActu != null) {
@@ -71,11 +73,22 @@ function validRepHypoJ() {
   while (cartesSuppr.length > 0) cartesSuppr[0].remove();
 }
 
+// --- Accusation ---
+
+function affAccu() {
+  if (salleActu != null) {
+    affichagePopUp('popUpAccuJ');
+  }
+}
+
 function validAccu() {
   masquagePopUp('popUpAccuJ');
   let cartes = document.getElementById('popUpAccuJ').getElementsByClassName('carteSelec');
   //Chaque element est un couple type de carte / nom de carte
   let carteSelec = recupCartesSelect(cartes);
+  if (salleActu != null) {
+    carteSelec.push(recupCarteSalle(salleActu));
+  }
   socket.emit('verifAccu', carteSelec);
 }
 

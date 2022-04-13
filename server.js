@@ -39,8 +39,8 @@ choixCarte('Armes', listeArmes, listeCartesATrouver);
 nbADistrib++;
 choixCarte('Personnages', listePersonnages, listeCartesATrouver);
 nbPDistrib++;
-//choixCarte('Salles', listeSalles, listeCartesATrouver);
-//nbSDistrib++;
+choixCarte('Salles', listeSalles, listeCartesATrouver);
+nbSDistrib++;
 
 console.log(listeCartesATrouver);
 
