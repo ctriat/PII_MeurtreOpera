@@ -231,14 +231,18 @@ function deplacementJoueur(idJ, idNCase) {
     joueur.parentElement.removeChild(joueur);
     nouvCase.appendChild(joueur);
     ajoutMessage('Déplacement du joueur ' + idJ + ' en ' + idNCase);
-    if (nouvCase.classList.contains('salle')) {
-      salleActu = caseJ.classList[0];
-    } else {
-      salleActu = null;
+    if (idJ == 'j' + numJoueur) {
+      if (nouvCase.classList.contains('salle')) {
+        salleActu = nouvCase.classList[0];
+        console.log(salleActu);
+      } else {
+        salleActu = null;
+      }
     }
   }
 }
 
+//Modification de la position des adversaires
 socket.on('modifPosA', (idJ, idCase) => {
   deplacementJoueur('j' + idJ, idCase);
 });

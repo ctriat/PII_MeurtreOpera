@@ -48,6 +48,9 @@ function validHypoJ() {
   let cartes = document.getElementById('popUpHypoJ').getElementsByClassName('carteSelec');
   //Chaque element est un couple type de carte / nom de carte
   let carteSelec = recupCartesSelect(cartes);
+  if (salleActu != null) {
+    carteSelec.push(recupCarteSalle(salleActu));
+  }
   socket.emit('envoiHypoJ', carteSelec);
 }
 
@@ -96,25 +99,34 @@ function recupCarteSalle(nomSalle) {
   let nomC = '';
   switch (nomSalle) {
     case 'balcon':
+      nomC = 'Balcon';
       break;
     case 'bar':
+      nomC = 'Bar';
       break;
     case 'coulisseJardin':
+      nomC = 'Coulisses côté jardin';
       break;
     case 'salleDecors':
+      nomC = 'Salle des décors';
       break;
     case 'salleCostumes':
+      nomC = 'Salle des costumes';
       break;
     case 'loges':
+      nomC = 'Loges';
       break;
     case 'coulisseCour':
+      nomC = 'Coulisses côté cour';
       break;
     case 'fosse':
+      nomC = 'Fosse';
       break;
     case 'scene':
+      nomC = 'Scène';
       break;
   }
-  if (nomCarte != '') {
+  if (nomC != '') {
     return {
       typeCarte: 'Salles',
       nomCarte: nomC,
