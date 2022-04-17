@@ -5,6 +5,7 @@ var socket = io();
 let plateau = [];
 let numJoueur;
 let salleActu;
+let deplPion = false;
 
 function generationPlateau() {
   for (let x = 0; x < 22; x++) {
@@ -229,10 +230,12 @@ socket.on('acceptConnect', (valide) => {
 // ---- En cours de jeu ----
 
 function clicCase() {
-  let idJ = 'j' + numJoueur;
-  let idCase = this.id;
-  deplacementJoueur(idJ, idCase);
-  socket.emit('modifPosJ', numJoueur, idCase);
+  if (deplPion) {
+    let idJ = 'j' + numJoueur;
+    let idCase = this.id;
+    deplacementJoueur(idJ, idCase);
+    socket.emit('modifPosJ', numJoueur, idCase);
+  }
 }
 
 function deplacementJoueur(idJ, idNCase) {
@@ -244,6 +247,7 @@ function deplacementJoueur(idJ, idNCase) {
     if (idJ == 'j' + numJoueur) {
       if (nouvCase.classList.contains('salle')) {
         salleActu = nouvCase.classList[0];
+        deplPion = false;
       } else {
         salleActu = null;
         socket.emit('finTour');
@@ -262,6 +266,7 @@ socket.on('changTour', (tourNumJ) => {
   if (tourNumJ == numJoueur) {
     document.getElementById('sectionTour').classList.remove('desactSectionTour');
   } else {
+    deplPion = false;
     document.getElementById('sectionTour').classList.add('desactSectionTour');
   }
 });
@@ -272,6 +277,7 @@ function lanceDes() {
       'Le joueur ' + numJoueur + ' avance de ' + (Math.floor(Math.random() * 12) + 1) + ' cases';
     ajoutMessage(msg);
     socket.emit('envoiMsg', msg);
+    deplPion = true;
   }
 }
 
