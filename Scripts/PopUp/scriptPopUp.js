@@ -157,13 +157,6 @@ function recupCarteSalle(nomSalle) {
 
 // ---- Reponses serveur ----
 
-//Demande de la liste des cartes du joueur
-socket.on('listeCartes', (listeC) => {
-  listeC.forEach((carte) => {
-    ajoutMessage(carte.nomCarte);
-  });
-});
-
 //Demande de la liste des armes pour initialiser les pop up
 socket.on('listeArmesInit', (listeA) => {
   listeA.forEach((arme) => {

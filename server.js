@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/Pages/partieJoueur.html');
 });
 
-let numJoueur = 1; //Numero du prochain joueur connecté
+let listeJ = ['', '', '']; //Liste des id des clients avec dans la premiere case le joueur 1...
 let nbConnect = 0; //Nombre de joueurs connectés
 let listeArmes = ['Barre', 'Collants', 'Couteau', 'Pointes', 'Projecteur', 'Ruban'];
 let listePersonnages = ['Barmaid', 'Chorégraphe', 'Couturière', 'Danseuse', 'Gérant', 'Technicien'];
@@ -45,6 +45,31 @@ nbSDistrib++;
 
 console.log(listeCartesATrouver);
 
+//Distribution des cartes restantes pour former les jeux des joueurs
+for (i = 0; i < 3; i++) {
+  let listeCartes = [];
+  let nbCartes = 0;
+  //3 joueurs donc 6 cartes
+  while (nbCartes < 6 && carteDistrib.length < carteDistribMaxLong) {
+    //Random entre 0 et 2
+    let numTab = Math.floor(Math.random() * 3);
+    if (numTab == 0 && nbADistrib < listeArmes.length) {
+      choixCarte('Armes', listeArmes, listeCartes);
+      nbADistrib++;
+      nbCartes++;
+    } else if (numTab == 1 && nbPDistrib < listePersonnages.length) {
+      choixCarte('Personnages', listePersonnages, listeCartes);
+      nbPDistrib++;
+      nbCartes++;
+    } else if (nbSDistrib < listeSalles.length) {
+      choixCarte('Salles', listeSalles, listeCartes);
+      nbSDistrib++;
+      nbCartes++;
+    }
+  }
+  listeCartesJ.push(listeCartes);
+}
+
 io.on('connection', (socket) => {
   console.log('a user connected');
 
@@ -52,49 +77,25 @@ io.on('connection', (socket) => {
   if (nbConnect >= 3) {
     io.to(socket.id).emit('acceptConnect', false);
     socket.disconnect();
+  } else {
+    io.to(socket.id).emit('acceptConnect', true);
+    nbConnect++;
+
+    //Attribution numéro
+    let indexNumJ = listeJ.indexOf('');
+    listeJ[indexNumJ] = socket.id;
+    io.to(socket.id).emit('attribNumJ', indexNumJ + 1);
+
+    //Definition de si c'est son tour ou non
+    io.to(socket.id).emit('changTour', tourNumJ);
+
+    //Distrib carte
+    io.to(socket.id).emit('distribCartes', listeCartesJ[indexNumJ]);
   }
-  io.to(socket.id).emit('acceptConnect', true);
-  nbConnect++;
-
-  //Attribution numéro
-  io.to(socket.id).emit('attribNumJ', numJoueur);
-  numJoueur++;
-
-  //Definition de si c'est son tour ou non
-  io.to(socket.id).emit('changTour', tourNumJ);
-
-  //Distrib carte
-  let listeCartes = [];
-  let i = 0;
-  //3 joueurs donc 6 cartes
-  while (i < 6 && carteDistrib.length < carteDistribMaxLong) {
-    //Random entre 0 et 2
-    let numTab = Math.floor(Math.random() * 3);
-    if (numTab == 0 && nbADistrib < listeArmes.length) {
-      choixCarte('Armes', listeArmes, listeCartes);
-      nbADistrib++;
-      i++;
-    } else if (numTab == 1 && nbPDistrib < listePersonnages.length) {
-      choixCarte('Personnages', listePersonnages, listeCartes);
-      nbPDistrib++;
-      i++;
-    } else if (nbSDistrib < listeSalles.length) {
-      choixCarte('Salles', listeSalles, listeCartes);
-      nbSDistrib++;
-      i++;
-    }
-  }
-  listeCartesJ.push(listeCartes);
-  io.to(socket.id).emit('distribCartes', listeCartes);
 
   //Envoi d'un message aux autres joueurs
   socket.on('envoiMsg', (msg) => {
     socket.broadcast.emit('recepMsg', msg);
-  });
-
-  //Demande de récupérer sa liste de cartes
-  socket.on('demListeCartes', (idJ) => {
-    io.to(socket.id).emit('listeCartes', listeCartesJ[idJ - 1]);
   });
 
   //Demande de récupérer les armes
@@ -170,6 +171,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
     nbConnect--;
+    listeJ[listeJ.indexOf(socket.id)] = '';
   });
 });
 
