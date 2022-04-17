@@ -168,6 +168,11 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('validAccu', valide, listeCartesATrouver);
   });
 
+  //Demande de fin de partie lorsqu'un joueur a gagne
+  socket.on('demFinPartie', (idJ) => {
+    io.sockets.emit('finPartie', idJ, listeCartesATrouver);
+  });
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
     nbConnect--;

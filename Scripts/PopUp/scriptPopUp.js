@@ -208,16 +208,25 @@ socket.on('repHypo', (rep) => {
 
 //Reponse à l'accusation en affichant si le joueur est gagnant ou non
 socket.on('validAccu', (valide, cartesATrouver) => {
-  affichagePopUp('popUpValidAccuJ');
-  cartesATrouver.forEach((carte) => {
-    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesValidAccuJ');
-  });
   if (valide) {
-    document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez gagné !';
+    socket.emit('demFinPartie', numJoueur);
   } else {
+    affichagePopUp('popUpValidAccuJ');
+    cartesATrouver.forEach((carte) => {
+      creationCarte(carte.typeCarte, carte.nomCarte, 'cartesValidAccuJ');
+    });
     document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez perdu !';
     socket.emit('envoiMsg', `Le joueur ${numJoueur} a perdu`);
   }
+});
+
+//Fin de la partie
+socket.on('finPartie', (idJ, cartesATrouver) => {
+  affichagePopUp('popUpFinPartie');
+  cartesATrouver.forEach((carte) => {
+    creationCarte(carte.typeCarte, carte.nomCarte, 'cartesFinPartie');
+  });
+  document.getElementById('texteFinPartie').innerText = `Le joueur ${idJ} a gagné`;
 });
 
 initPopUp();
