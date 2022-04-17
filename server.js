@@ -34,6 +34,7 @@ let tourNumJ = 1; //Numero du joueur dont c'est le tour actuellement
 let positionJ = ['21;7', '21;8', '21;9']; // Premiere val du tab correspond au joueur 1, deuxieme joueur 2...
 let repHypoA = []; //Stocke les réponses a l'hypothese du joueur dont c'est le tour
 let idJCourant = null; //Identifiant socket du joueur dont c'est le tour
+let aPerdu = [false, false, false]; //Etat des joueurs si perdu ou non avec j1 premiere case
 
 //Choix cartes a trouver
 choixCarte('Armes', listeArmes, listeCartesATrouver);
@@ -121,11 +122,13 @@ io.on('connection', (socket) => {
 
   //Fin du tour du joueur actuel
   socket.on('finTour', () => {
-    if (tourNumJ == 3) {
-      tourNumJ = 1;
-    } else {
-      tourNumJ++;
-    }
+    do {
+      if (tourNumJ == 3) {
+        tourNumJ = 1;
+      } else {
+        tourNumJ++;
+      }
+    } while (aPerdu[tourNumJ - 1]);
     io.sockets.emit('changTour', tourNumJ);
   });
 
@@ -166,6 +169,14 @@ io.on('connection', (socket) => {
       }
     });
     io.to(socket.id).emit('validAccu', valide, listeCartesATrouver);
+  });
+
+  //Mise a jour joueur perdu
+  socket.on('ajoutPerdu', (idJ) => {
+    aPerdu[idJ - 1] = true;
+    if (aPerdu.filter(Boolean).length >= 2) {
+      io.sockets.emit('finPartie', aPerdu.indexOf(false) + 1, listeCartesATrouver);
+    }
   });
 
   //Demande de fin de partie lorsqu'un joueur a gagne

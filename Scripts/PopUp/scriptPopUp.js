@@ -104,6 +104,8 @@ function validValidationAccu() {
   masquagePopUp('popUpValidAccuJ');
   let cartesSuppr = document.getElementById('popUpValidAccuJ').getElementsByClassName('carte');
   while (cartesSuppr.length > 0) cartesSuppr[0].remove();
+  //Valide la fermeture de la pop up seulement si il a perdu
+  socket.emit('ajoutPerdu', numJoueur);
   socket.emit('finTour');
 }
 
