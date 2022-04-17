@@ -21,9 +21,8 @@ function generationPlateau() {
   }
 
   //Creation des joueurs
-  let yJoueur = 7;
   for (let i = 1; i <= 3; i++) {
-    definitionJoueur(i, 21, yJoueur++);
+    socket.emit('demPosJ', i);
   }
 
   //Creation des cartes du joueur
@@ -189,12 +188,17 @@ function correctionBordure(x, y, casePlateau) {
   }
 }
 
-function definitionJoueur(id, x, y) {
+//Recuperation de la position du joueur
+socket.on('recupPosJ', (id, pos) => {
+  definitionJoueur(id, pos);
+});
+
+function definitionJoueur(id, pos) {
   let joueur = document.createElement('div');
   joueur.id = 'j' + id;
   joueur.className = 'joueur';
   joueur.textContent = id;
-  document.getElementById(x + ';' + y).appendChild(joueur);
+  document.getElementById(pos).appendChild(joueur);
 }
 
 function creationCarte(typeCarte, nomCarte, nomSection) {
@@ -213,6 +217,7 @@ function creationCarte(typeCarte, nomCarte, nomSection) {
   return carte;
 }
 
+//Genere le plateau si le nombre maximum de connexions n'est pas atteint
 socket.on('acceptConnect', (valide) => {
   if (valide) {
     generationPlateau();

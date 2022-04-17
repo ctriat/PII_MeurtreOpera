@@ -31,7 +31,7 @@ let listeCartesATrouver = [];
 let carteDistrib = [];
 let carteDistribMaxLong = listeArmes.length + listePersonnages.length + listeSalles.length;
 let tourNumJ = 1; //Numero du joueur dont c'est le tour actuellement
-let positionJ = []; // Premiere val du tab correspond au joueur 1, deuxieme joueur 2...
+let positionJ = ['21;7', '21;8', '21;9']; // Premiere val du tab correspond au joueur 1, deuxieme joueur 2...
 let repHypoA = []; //Stocke les réponses a l'hypothese du joueur dont c'est le tour
 let idJCourant = null; //Identifiant socket du joueur dont c'est le tour
 
@@ -48,6 +48,7 @@ console.log(listeCartesATrouver);
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+  //Deconnecte le joueur si il y en a deja 3
   if (nbConnect >= 3) {
     io.to(socket.id).emit('acceptConnect', false);
     socket.disconnect();
@@ -112,10 +113,10 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('modifPosA', idJ, idCase);
   });
 
-  /*//Demande de la position du joueur
+  //Demande de la position du joueur
   socket.on('demPosJ', (idJ) => {
-    io.to(socket.id).emit('recupPosJ', positionJ[idJ - 1]);
-  });*/
+    io.to(socket.id).emit('recupPosJ', idJ, positionJ[idJ - 1]);
+  });
 
   //Fin du tour du joueur actuel
   socket.on('finTour', () => {

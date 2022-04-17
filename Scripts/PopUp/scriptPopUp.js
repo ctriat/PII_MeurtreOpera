@@ -180,17 +180,6 @@ socket.on('listePersoInit', (listeP) => {
   });
 });
 
-/*//Recuperation de la position du joueur
-socket.on('recupPosJ', (pos) => {
-  caseJ = document.getElementById(pos);
-  if (caseJ.classList.contains('salle')) {
-    affichagePopUp('popUpHypoJ');
-    salleActu = caseJ.classList[0]; 
-    //stocker dans variable et remettre salle a null apres l'avoir recuperer
-    console.log(caseJ.classList);
-  }
-});*/
-
 //Recuperation hypothese adversaire
 socket.on('recupHypoA', (hypo) => {
   affichagePopUp('popUpHypoA');
