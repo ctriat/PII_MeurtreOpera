@@ -41,7 +41,8 @@ function clicCarte() {
 function affHypoJ() {
   if (
     salleActu != null &&
-    !document.getElementById('sectionTour').classList.contains('desactSectionTour')
+    !document.getElementById('sectionTour').classList.contains('desact') &&
+    !document.getElementById('btnHypo').classList.contains('desact')
   ) {
     affichagePopUp('popUpHypoJ');
     socket.emit('envoiMsg', `Le joueur ${numJoueur} fait une hypothèse`);
@@ -82,7 +83,8 @@ function validRepHypoJ() {
 function affAccu() {
   if (
     salleActu != null &&
-    !document.getElementById('sectionTour').classList.contains('desactSectionTour')
+    !document.getElementById('sectionTour').classList.contains('desact') &&
+    !document.getElementById('btnAccu').classList.contains('desact')
   ) {
     affichagePopUp('popUpAccuJ');
     socket.emit('envoiMsg', `Le joueur ${numJoueur} fait une accusation`);

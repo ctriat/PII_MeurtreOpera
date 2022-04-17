@@ -245,6 +245,8 @@ function deplacementJoueur(idJ, idNCase) {
     joueur.parentElement.removeChild(joueur);
     nouvCase.appendChild(joueur);
     if (idJ == 'j' + numJoueur) {
+      document.getElementById('btnHypo').classList.remove('desact');
+      document.getElementById('btnAccu').classList.remove('desact');
       if (nouvCase.classList.contains('salle')) {
         salleActu = nouvCase.classList[0];
         deplPion = false;
@@ -265,21 +267,28 @@ socket.on('modifPosA', (idJ, idCase) => {
 //Changement de tour de jeu
 socket.on('changTour', (tourNumJ) => {
   if (tourNumJ == numJoueur) {
-    document.getElementById('sectionTour').classList.remove('desactSectionTour');
+    document.getElementById('sectionTour').classList.remove('desact');
+    document.getElementById('btnHypo').classList.add('desact');
+    document.getElementById('btnAccu').classList.add('desact');
     ajoutMessage("C'est à votre tour de jouer, lancez les dés afin de vous déplacer");
   } else {
+    document.getElementById('btnDes').classList.remove('desact');
     deplPion = false;
-    document.getElementById('sectionTour').classList.add('desactSectionTour');
+    document.getElementById('sectionTour').classList.add('desact');
     ajoutMessage(`C'est au tour du joueur ${tourNumJ} de jouer`);
   }
 });
 
 function lanceDes() {
-  if (!document.getElementById('sectionTour').classList.contains('desactSectionTour')) {
+  if (
+    !document.getElementById('sectionTour').classList.contains('desact') &&
+    !document.getElementById('btnDes').classList.contains('desact')
+  ) {
     let nbCases = Math.floor(Math.random() * 12) + 1;
     ajoutMessage(`Vous avancez de ${nbCases} cases`);
     socket.emit('envoiMsg', `Le joueur ${numJoueur} avance de ${nbCases} cases`);
     deplPion = true;
+    document.getElementById('btnDes').classList.add('desact');
   }
 }
 
