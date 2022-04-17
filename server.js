@@ -130,9 +130,9 @@ io.on('connection', (socket) => {
   });
 
   //Envoi de l'hypothèse du joueur
-  socket.on('envoiHypoJ', (hypo) => {
+  socket.on('envoiHypoJ', (hypo, idJ) => {
     idJCourant = socket.id;
-    socket.broadcast.emit('recupHypoA', hypo);
+    socket.broadcast.emit('recupHypoA', hypo, idJ);
   });
 
   //Envoi des cartes correspondantes à l'hypo du joueur en fonction de son num

@@ -35,7 +35,7 @@ function generationPlateau() {
 
   socket.on('attribNumJ', (numJ) => {
     numJoueur = numJ;
-    ajoutMessage(`Bienvenue dans la partie de cluedo vous êtes le joueur ${numJoueur}`);
+    ajoutMessage(`Bienvenue dans la partie de cluedo, vous êtes le joueur ${numJoueur}`);
   });
 }
 
@@ -248,6 +248,7 @@ function deplacementJoueur(idJ, idNCase) {
       if (nouvCase.classList.contains('salle')) {
         salleActu = nouvCase.classList[0];
         deplPion = false;
+        ajoutMessage('Choisissez si vous voulez faire une hypothèse ou une accusation');
       } else {
         salleActu = null;
         socket.emit('finTour');
@@ -265,25 +266,26 @@ socket.on('modifPosA', (idJ, idCase) => {
 socket.on('changTour', (tourNumJ) => {
   if (tourNumJ == numJoueur) {
     document.getElementById('sectionTour').classList.remove('desactSectionTour');
+    ajoutMessage("C'est à votre tour de jouer, lancez les dés afin de vous déplacer");
   } else {
     deplPion = false;
     document.getElementById('sectionTour').classList.add('desactSectionTour');
+    ajoutMessage(`C'est au tour du joueur ${tourNumJ} de jouer`);
   }
 });
 
 function lanceDes() {
   if (!document.getElementById('sectionTour').classList.contains('desactSectionTour')) {
-    let msg =
-      'Le joueur ' + numJoueur + ' avance de ' + (Math.floor(Math.random() * 12) + 1) + ' cases';
-    ajoutMessage(msg);
-    socket.emit('envoiMsg', msg);
+    let nbCases = Math.floor(Math.random() * 12) + 1;
+    ajoutMessage(`Vous avancez de ${nbCases} cases`);
+    socket.emit('envoiMsg', `Le joueur ${numJoueur} avance de ${nbCases} cases`);
     deplPion = true;
   }
 }
 
 function ajoutMessage(message) {
   let infosPartie = document.getElementById('infosPartie');
-  infosPartie.innerHTML += '<br />' + message;
+  infosPartie.innerHTML += '<br /> > ' + message;
   infosPartie.scrollTo(0, infosPartie.scrollHeight);
 }
 

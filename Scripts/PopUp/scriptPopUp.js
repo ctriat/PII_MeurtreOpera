@@ -39,12 +39,12 @@ function clicCarte() {
 // --- Hypothese ---
 
 function affHypoJ() {
-  //socket.emit('demPosJ', numJoueur);
   if (
     salleActu != null &&
     !document.getElementById('sectionTour').classList.contains('desactSectionTour')
   ) {
     affichagePopUp('popUpHypoJ');
+    socket.emit('envoiMsg', `Le joueur ${numJoueur} fait une hypothèse`);
   }
 }
 
@@ -56,7 +56,7 @@ function validHypoJ() {
   if (salleActu != null) {
     carteSelec.push(recupCarteSalle(salleActu));
   }
-  socket.emit('envoiHypoJ', carteSelec);
+  socket.emit('envoiHypoJ', carteSelec, numJoueur);
 }
 
 function validHypoA() {
@@ -85,6 +85,7 @@ function affAccu() {
     !document.getElementById('sectionTour').classList.contains('desactSectionTour')
   ) {
     affichagePopUp('popUpAccuJ');
+    socket.emit('envoiMsg', `Le joueur ${numJoueur} fait une accusation`);
   }
 }
 
@@ -174,8 +175,11 @@ socket.on('listePersoInit', (listeP) => {
 });
 
 //Recuperation hypothese adversaire
-socket.on('recupHypoA', (hypo) => {
+socket.on('recupHypoA', (hypo, idJ) => {
   affichagePopUp('popUpHypoA');
+  document
+    .getElementById('popUpHypoA')
+    .getElementsByClassName('titrePopUp')[0].innerText = `Réponse à l'hypothèse du joueur ${idJ}`;
   hypo.forEach((carte) => {
     creationCarte(carte.typeCarte, carte.nomCarte, 'cartesHypoDA');
   });
@@ -212,6 +216,7 @@ socket.on('validAccu', (valide, cartesATrouver) => {
     document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez gagné !';
   } else {
     document.getElementById('texteValidAccuJ').innerHTML = 'Vous avez perdu !';
+    socket.emit('envoiMsg', `Le joueur ${numJoueur} a perdu`);
   }
 });
 
