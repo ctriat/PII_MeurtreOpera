@@ -47,6 +47,12 @@ console.log(listeCartesATrouver);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+
+  if (nbConnect >= 3) {
+    io.to(socket.id).emit('acceptConnect', false);
+    socket.disconnect();
+  }
+  io.to(socket.id).emit('acceptConnect', true);
   nbConnect++;
 
   //Attribution numéro

@@ -213,7 +213,13 @@ function creationCarte(typeCarte, nomCarte, nomSection) {
   return carte;
 }
 
-generationPlateau();
+socket.on('acceptConnect', (valide) => {
+  if (valide) {
+    generationPlateau();
+  } else {
+    document.body.innerText = 'Vous ne pouvez pas vous connecter il y a déjà 3 joueurs en ligne';
+  }
+});
 
 // ---- En cours de jeu ----
 
@@ -230,7 +236,6 @@ function deplacementJoueur(idJ, idNCase) {
   if (nouvCase.children.length == 0) {
     joueur.parentElement.removeChild(joueur);
     nouvCase.appendChild(joueur);
-    ajoutMessage('Déplacement du joueur ' + idJ + ' en ' + idNCase);
     if (idJ == 'j' + numJoueur) {
       if (nouvCase.classList.contains('salle')) {
         salleActu = nouvCase.classList[0];
