@@ -44,8 +44,6 @@ nbPDistrib++;
 choixCarte('Salles', listeSalles, listeCartesATrouver);
 nbSDistrib++;
 
-console.log(listeCartesATrouver);
-
 //Distribution des cartes restantes pour former les jeux des joueurs
 for (i = 0; i < 3; i++) {
   let listeCartes = [];
@@ -71,6 +69,7 @@ for (i = 0; i < 3; i++) {
   listeCartesJ.push(listeCartes);
 }
 
+// S'execute lorsqu'un joueur se connecte
 io.on('connection', (socket) => {
   console.log('a user connected');
 
