@@ -1,8 +1,20 @@
 #container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Gestion taille ecran */
+@media (width <= 1300px) {
+  #container {
+    justify-content: space-between;
+  }
+}
+
+@media (width > 1300px) {
+  #container {
+    justify-content: space-around;
+  }
 }
 
 /*Barre laterale*/
